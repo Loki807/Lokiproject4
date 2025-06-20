@@ -11,17 +11,20 @@ namespace Lokiproject4.Controllers
 {
     internal class TimetableController
     {
+
+
        
-        
             public void AddTimetable(Timetables tt)
             {
                 using (var connect = Connection.GetConnection())
                 {
                     connect.Open();
-                    string query = "INSERT INTO Timetables (SubId, TimeSlot, RoomId) VALUES (@SubId, @TimeSlot, @RoomId)";
+                    string query = @"INSERT INTO Timetables (SubId, LecturerId, TimeSlot, RoomId)
+                                 VALUES (@SubId, @LecturerId, @TimeSlot, @RoomId)";
                     using (var cmd = new SQLiteCommand(query, connect))
                     {
                         cmd.Parameters.AddWithValue("@SubId", tt.SubId);
+                        cmd.Parameters.AddWithValue("@LecturerId", tt.LecturerId);
                         cmd.Parameters.AddWithValue("@TimeSlot", tt.TimeSlot);
                         cmd.Parameters.AddWithValue("@RoomId", tt.RoomId);
                         cmd.ExecuteNonQuery();
@@ -36,10 +39,11 @@ namespace Lokiproject4.Controllers
                 {
                     connect.Open();
                     string query = @"
-                SELECT t.TimetableId, s.SubName, t.TimeSlot, r.RoomName
-                FROM Timetables t
-                JOIN Subjects s ON t.SubId = s.SubId
-                JOIN Rooms r ON t.RoomId = r.RoomId";
+                    SELECT t.TimetableId, s.SubName, l.LName, t.TimeSlot, r.RoomType
+                    FROM Timetables t
+                    JOIN Subjects s ON t.SubId = s.SubId
+                    JOIN Lecturers l ON t.LecturerId = l.LecturerId
+                    JOIN Rooms r ON t.RoomId = r.RoomId";
 
                     using (var cmd = new SQLiteCommand(query, connect))
                     using (var reader = cmd.ExecuteReader())
@@ -50,14 +54,52 @@ namespace Lokiproject4.Controllers
                             {
                                 TimetableId = reader.GetInt32(0),
                                 SubjectName = reader.GetString(1),
-                                TimeSlot = reader.GetString(2),
-                                RoomName = reader.GetString(3)
+                                LecturerName = reader.GetString(2),
+                                TimeSlot = reader.GetString(3),
+                                RoomType = reader.GetString(4)
                             });
                         }
                     }
                 }
                 return list;
             }
+
+            public void UpdateTimetable(Timetables tt)
+            {
+                using (var connect = Connection.GetConnection())
+                {
+                    connect.Open();
+                    string updateQuery = @"
+                    UPDATE Timetables 
+                    SET SubId = @SubId, LecturerId = @LecturerId, TimeSlot = @TimeSlot, RoomId = @RoomId 
+                    WHERE TimetableId = @TimetableId";
+                    using (var cmd = new SQLiteCommand(updateQuery, connect))
+                    {
+                        cmd.Parameters.AddWithValue("@SubId", tt.SubId);
+                        cmd.Parameters.AddWithValue("@LecturerId", tt.LecturerId);
+                        cmd.Parameters.AddWithValue("@TimeSlot", tt.TimeSlot);
+                        cmd.Parameters.AddWithValue("@RoomId", tt.RoomId);
+                        cmd.Parameters.AddWithValue("@TimetableId", tt.TimetableId);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+
+            public void DeleteTimetable(int timetableId)
+            {
+                using (var connect = Connection.GetConnection())
+                {
+                    connect.Open();
+                    string query = "DELETE FROM Timetables WHERE TimetableId = @TimetableId";
+                    using (var cmd = new SQLiteCommand(query, connect))
+                    {
+                        cmd.Parameters.AddWithValue("@TimetableId", timetableId);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+
+
+
         }
-    
-}
+ }

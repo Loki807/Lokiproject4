@@ -38,6 +38,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cmbSubjects = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMarks)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numScore)).BeginInit();
             this.SuspendLayout();
@@ -132,11 +133,21 @@
             this.cmbSubjects.Size = new System.Drawing.Size(121, 24);
             this.cmbSubjects.TabIndex = 10;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(262, 99);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(57, 16);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "subjects";
+            // 
             // MarksForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.cmbSubjects);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -169,5 +180,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmbSubjects;
+        private System.Windows.Forms.Label label3;
     }
 }

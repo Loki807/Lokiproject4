@@ -30,7 +30,6 @@
         {
             this.dgvLecturers = new System.Windows.Forms.DataGridView();
             this.txtLName = new System.Windows.Forms.TextBox();
-            this.txtDepartment = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -40,6 +39,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.cmbCourses = new System.Windows.Forms.ComboBox();
+            this.cmbSubjects = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLecturers)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,13 +61,6 @@
             this.txtLName.Name = "txtLName";
             this.txtLName.Size = new System.Drawing.Size(100, 22);
             this.txtLName.TabIndex = 1;
-            // 
-            // txtDepartment
-            // 
-            this.txtDepartment.Location = new System.Drawing.Point(428, 151);
-            this.txtDepartment.Name = "txtDepartment";
-            this.txtDepartment.Size = new System.Drawing.Size(100, 22);
-            this.txtDepartment.TabIndex = 2;
             // 
             // label1
             // 
@@ -147,11 +142,39 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // cmbCourses
+            // 
+            this.cmbCourses.FormattingEnabled = true;
+            this.cmbCourses.Location = new System.Drawing.Point(407, 149);
+            this.cmbCourses.Name = "cmbCourses";
+            this.cmbCourses.Size = new System.Drawing.Size(121, 24);
+            this.cmbCourses.TabIndex = 12;
+            // 
+            // cmbSubjects
+            // 
+            this.cmbSubjects.FormattingEnabled = true;
+            this.cmbSubjects.Location = new System.Drawing.Point(407, 189);
+            this.cmbSubjects.Name = "cmbSubjects";
+            this.cmbSubjects.Size = new System.Drawing.Size(121, 24);
+            this.cmbSubjects.TabIndex = 13;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(284, 189);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(50, 16);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "subject";
+            // 
             // LecturerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.cmbSubjects);
+            this.Controls.Add(this.cmbCourses);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label4);
@@ -161,7 +184,6 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtDepartment);
             this.Controls.Add(this.txtLName);
             this.Controls.Add(this.dgvLecturers);
             this.Name = "LecturerForm";
@@ -177,7 +199,6 @@
 
         private System.Windows.Forms.DataGridView dgvLecturers;
         private System.Windows.Forms.TextBox txtLName;
-        private System.Windows.Forms.TextBox txtDepartment;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button1;
@@ -187,5 +208,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ComboBox cmbCourses;
+        private System.Windows.Forms.ComboBox cmbSubjects;
+        private System.Windows.Forms.Label label5;
     }
 }

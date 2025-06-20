@@ -27,35 +27,41 @@ namespace Lokiproject4.Views
         }
         private void LoadRooms()
         {
-            RoomController roomCtrl = new RoomController();
-            dgvRooms.DataSource = roomCtrl.ViewRooms();
+            dgvRooms.DataSource = new RoomController().ViewRooms();
+        }
+
+        private void LoadRoomTypes()
+        {
+            cmbRoomType.Items.Clear();
+            cmbRoomType.Items.Add("Lab");
+            cmbRoomType.Items.Add("Hall");
+            cmbRoomType.SelectedIndex = 0;
         }
 
         private void ClearFields()
         {
-            txtRoomName.Text = "";
             cmbRoomType.SelectedIndex = -1;
         }
 
+
         private void button1_Click(object sender, EventArgs e)
         {
-            string roomName = txtRoomName.Text.Trim();
             string roomType = cmbRoomType.SelectedItem?.ToString();
 
-            if (string.IsNullOrEmpty(roomName) || string.IsNullOrEmpty(roomType))
+            if (string.IsNullOrEmpty(roomType))
             {
-                MessageBox.Show("Please enter both Room Name and Room Type.");
+                MessageBox.Show("Please select Room Type.");
                 return;
             }
 
             Room room = new Room
             {
-                RoomName = roomName,
                 RoomType = roomType
             };
 
-            RoomController roomCtrl = new RoomController();
-            roomCtrl.AddRoom(room);
+            RoomController ctrl = new RoomController();
+            ctrl.AddRoom(room);
+
             MessageBox.Show("Room added successfully.");
             LoadRooms();
             ClearFields();
@@ -68,21 +74,51 @@ namespace Lokiproject4.Views
                 int roomId = Convert.ToInt32(dgvRooms.SelectedRows[0].Cells["RoomId"].Value);
                 RoomController ctrl = new RoomController();
                 ctrl.DeleteRoom(roomId);
+
+                MessageBox.Show("Room deleted.");
                 LoadRooms();
                 ClearFields();
-                MessageBox.Show("Room deleted.");
             }
             else
             {
                 MessageBox.Show("Please select a room to delete.");
             }
         }
-        private void LoadRoomTypes()
+       
+
+        private void cmbRoomType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cmbRoomType.Items.Clear();
-            cmbRoomType.Items.Add("Lab");
-            cmbRoomType.Items.Add("Hall");
-            cmbRoomType.SelectedIndex = 0; // Set default selection
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (dgvRooms.SelectedRows.Count > 0)
+            {
+                int roomId = Convert.ToInt32(dgvRooms.SelectedRows[0].Cells["RoomId"].Value);
+                string roomType = cmbRoomType.SelectedItem?.ToString();
+
+                if (string.IsNullOrEmpty(roomType))
+                {
+                    MessageBox.Show("Select room type.");
+                    return;
+                }
+
+                Room room = new Room
+                {
+                    RoomId = roomId,
+                    RoomType = roomType
+                };
+
+                new RoomController().UpdateRoom(room);
+                MessageBox.Show("Room updated successfully.");
+                LoadRooms();
+                ClearFields();
+            }
+            else
+            {
+                MessageBox.Show("Select a row to update.");
+            }
         }
     }
 }

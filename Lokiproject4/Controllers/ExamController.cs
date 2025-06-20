@@ -16,10 +16,11 @@ namespace Lokiproject4.Controllers
             using (var connect = Connection.GetConnection())
             {
                 connect.Open();
-                string query = "INSERT INTO Exams (ExamName, SubId) VALUES (@ExamName, @SubId)";
+                string query = "INSERT INTO Exams (ExamName, SubId, SId) VALUES (@ExamName, @SubId, @SId)";
                 SQLiteCommand cmd = new SQLiteCommand(query, connect);
                 cmd.Parameters.AddWithValue("@ExamName", exam.ExamName);
                 cmd.Parameters.AddWithValue("@SubId", exam.SubId);
+                cmd.Parameters.AddWithValue("@SId", exam.SId);
                 cmd.ExecuteNonQuery();
             }
         }
@@ -31,9 +32,9 @@ namespace Lokiproject4.Controllers
             {
                 connect.Open();
                 string query = @"
-                SELECT e.ExamId, e.ExamName, s.SubId, s.SubName
-                FROM Exams e
-                JOIN Subjects s ON e.SubId = s.SubId";
+        SELECT e.ExamId, e.ExamName, s.SubId, s.SubName, e.SId
+        FROM Exams e
+        JOIN Subjects s ON e.SubId = s.SubId";
                 SQLiteCommand cmd = new SQLiteCommand(query, connect);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -43,12 +44,14 @@ namespace Lokiproject4.Controllers
                         ExamId = reader.GetInt32(0),
                         ExamName = reader.GetString(1),
                         SubId = reader.GetInt32(2),
-                        SubName = reader.GetString(3)
+                        SubName = reader.GetString(3),
+                        SId = reader.GetInt32(4)
                     });
                 }
             }
             return exams;
         }
+
         public void DeleteExam(int examId)
         {
             using (var connect = Connection.GetConnection())
@@ -66,14 +69,14 @@ namespace Lokiproject4.Controllers
             using (var connect = Connection.GetConnection())
             {
                 connect.Open();
-                string query = "UPDATE Exams SET ExamName = @ExamName, SubId = @SubId WHERE ExamId = @ExamId";
+                string query = "UPDATE Exams SET ExamName = @ExamName, SubId = @SubId, SId = @SId WHERE ExamId = @ExamId";
                 SQLiteCommand cmd = new SQLiteCommand(query, connect);
                 cmd.Parameters.AddWithValue("@ExamName", exam.ExamName);
                 cmd.Parameters.AddWithValue("@SubId", exam.SubId);
+                cmd.Parameters.AddWithValue("@SId", exam.SId);
                 cmd.Parameters.AddWithValue("@ExamId", exam.ExamId);
                 cmd.ExecuteNonQuery();
             }
         }
-
     }
 }

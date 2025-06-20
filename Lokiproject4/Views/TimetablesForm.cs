@@ -19,37 +19,53 @@ namespace Lokiproject4.Views
             InitializeComponent();
             LoadSubjects();
             LoadTimetables();
-            LoadRooms();
-        }
-        private void LoadRooms()
-        {
-            cmbRooms.DataSource = new RoomController().ViewRooms();
-            cmbRooms.DisplayMember = "RoomName";
-            cmbRooms.ValueMember = "RoomId";
-        }
+            LoadRoomTypes();
+            LoadLecturers();
 
+        }
         private void LoadSubjects()
         {
-            cmbSubjects.DataSource = new SubjectController().ViewSubjects();
-            cmbSubjects.DisplayMember = "SubName";
-            cmbSubjects.ValueMember = "SubId";
+            comboBox1.DataSource = new SubjectController().ViewSubjects();
+            comboBox1.DisplayMember = "SubName";
+            comboBox1.ValueMember = "SubId";
         }
 
-        private void txtTimeslot_Load(object sender, EventArgs e)
+        private void LoadLecturers()
         {
-
+            comboBox3.DataSource = new LecturerController().ViewLecturers();
+            comboBox3.DisplayMember = "LName";
+            comboBox3.ValueMember = "LecturerId";
         }
+
+        private void LoadRoomTypes()
+        {
+            comboBox2.Items.Clear();
+            comboBox2.Items.Add("Lab");
+            comboBox2.Items.Add("Hall");
+
+            if (comboBox2.Items.Count > 0)
+                comboBox2.SelectedIndex = 0;
+        }
+
         private void LoadTimetables()
         {
-            dgvTimetables.DataSource = new TimetableController().ViewTimetables();
+            dataGridView1.DataSource = new TimetableController().ViewTimetables();
+        }
+
+        private void ClearForm()
+        {
+            comboBox1.SelectedIndex = 0;
+            comboBox3.SelectedIndex = 0;
+            comboBox2.SelectedIndex = 0;
+            textBox1.Text = "";
         }
 
         private void btnAddTimetable_Click(object sender, EventArgs e)
         {
             Timetables tt = new Timetables
             {
-                SubId = Convert.ToInt32(cmbSubjects.SelectedValue),
-                TimeSlot = TimeSlot.Text,
+                SubId = Convert.ToInt32(comboBox1.SelectedValue),
+                TimeSlot = textBox1.Text,
                 RoomId = Convert.ToInt32(cmbRooms.SelectedValue)
             };
             new TimetableController().AddTimetable(tt);
@@ -72,6 +88,68 @@ namespace Lokiproject4.Views
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void txtTimeslot_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                int timetableId = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["TimetableId"].Value);
+                new TimetableController().DeleteTimetable(timetableId);
+                MessageBox.Show("Timetable Deleted");
+                LoadTimetables();
+                ClearForm();
+            }
+            else
+            {
+                MessageBox.Show("Please select a timetable to delete.");
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                int timetableId = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["TimetableId"].Value);
+                Timetables tt = new Timetables
+                {
+                    TimetableId = timetableId,
+                    SubId = Convert.ToInt32(comboBox1.SelectedValue),
+                    LecturerId = Convert.ToInt32(comboBox3.SelectedValue),
+                    TimeSlot = textBox1.Text,
+                    RoomId = Convert.ToInt32(comboBox2.SelectedValue)
+                };
+
+                new TimetableController().UpdateTimetable(tt);
+                MessageBox.Show("Timetable Updated");
+                LoadTimetables();
+                ClearForm();
+            }
+            else
+            {
+                MessageBox.Show("Please select a timetable to update.");
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Timetables tt = new Timetables
+            {
+                SubId = Convert.ToInt32(comboBox1.SelectedValue),
+                LecturerId = Convert.ToInt32(comboBox3.SelectedValue),
+                TimeSlot = textBox1.Text,
+                RoomId = Convert.ToInt32(comboBox2.SelectedValue)
+            };
+
+            new TimetableController().AddTimetable(tt);
+            MessageBox.Show("Timetable Added");
+            LoadTimetables();
+            ClearForm();
         }
     }
     

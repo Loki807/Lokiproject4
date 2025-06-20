@@ -13,75 +13,80 @@ namespace Lokiproject4.Controllers
     {
 
 
-      
-        
-            public void AddLecturer(Lecturer lec)
+
+
+        public void AddLecturer(Lecturer lec)
+        {
+            using (var connect = Connection.GetConnection())
             {
-                using (var connect = Connection.GetConnection())
+                connect.Open();
+                string query = @"INSERT INTO Lecturers (LName, CId, SubId) VALUES (@LName, @CId, @SubId)";
+                using (var cmd = new SQLiteCommand(query, connect))
                 {
-                    connect.Open();
-                    string query = @"INSERT INTO Lecturers (LName, Department) VALUES (@LName, @Department)";
-                    using (var cmd = new SQLiteCommand(query, connect))
-                    {
-                        cmd.Parameters.AddWithValue("@LName", lec.LName);
-                        cmd.Parameters.AddWithValue("@Department", lec.Department);
-                        cmd.ExecuteNonQuery();
-                    }
+                    cmd.Parameters.AddWithValue("@LName", lec.LName);
+                    cmd.Parameters.AddWithValue("@CId", lec.CId);
+                    cmd.Parameters.AddWithValue("@SubId", lec.SubId);
+                    cmd.ExecuteNonQuery();
                 }
             }
+        }
 
-            public int AddLecturertogetId(Lecturer lec)
+        public int AddLecturertogetId(Lecturer lec)
+        {
+            using (var connect = Connection.GetConnection())
             {
-                using (var connect = Connection.GetConnection())
+                connect.Open();
+                string query = @"INSERT INTO Lecturers (LName, CId, SubId)
+                             VALUES (@LName, @CId, @SubId);
+                             SELECT last_insert_rowid();";
+                using (var cmd = new SQLiteCommand(query, connect))
                 {
-                    connect.Open();
-                    string query = @"INSERT INTO Lecturers (LName, Department) 
-                                 VALUES (@LName, @Department); 
-                                 SELECT last_insert_rowid();";
-                    using (var cmd = new SQLiteCommand(query, connect))
-                    {
-                        cmd.Parameters.AddWithValue("@LName", lec.LName);
-                        cmd.Parameters.AddWithValue("@Department", lec.Department);
-                        return Convert.ToInt32((long)cmd.ExecuteScalar());
-                    }
+                    cmd.Parameters.AddWithValue("@LName", lec.LName);
+                    cmd.Parameters.AddWithValue("@CId", lec.CId);
+                    cmd.Parameters.AddWithValue("@SubId", lec.SubId);
+                    return Convert.ToInt32((long)cmd.ExecuteScalar());
                 }
             }
+        }
 
-            public List<Lecturer> ViewLecturers()
+        public List<Lecturer> ViewLecturers()
+        {
+            List<Lecturer> list = new List<Lecturer>();
+            using (var connect = Connection.GetConnection())
             {
-                List<Lecturer> list = new List<Lecturer>();
-                using (var connect = Connection.GetConnection())
+                connect.Open();
+                string query = "SELECT * FROM Lecturers";
+                using (var cmd = new SQLiteCommand(query, connect))
+                using (var reader = cmd.ExecuteReader())
                 {
-                    connect.Open();
-                    string query = "SELECT * FROM Lecturers";
-                    using (var cmd = new SQLiteCommand(query, connect))
-                    using (var reader = cmd.ExecuteReader())
+                    while (reader.Read())
                     {
-                        while (reader.Read())
+                        list.Add(new Lecturer
                         {
-                            list.Add(new Lecturer
-                            {
-                                LecturerId = reader.GetInt32(0),
-                                LName = reader.GetString(1),
-                                Department = reader.GetString(2)
-                            });
-                        }
+                            LecturerId = reader.GetInt32(0),
+                            LName = reader.GetString(1),
+                            CId = reader.GetInt32(2),
+                            SubId = reader.GetInt32(3)
+                        });
                     }
                 }
-                return list;
             }
+            return list;
+        }
+
         public void UpdateLecturer(Lecturer lec)
         {
             using (var connect = Connection.GetConnection())
             {
                 connect.Open();
                 string updateQuery = @"UPDATE Lecturers 
-                                       SET LName = @LName, Department = @Department 
-                                       WHERE LecturerId = @LecturerId";
+                                   SET LName = @LName, CId = @CId, SubId = @SubId 
+                                   WHERE LecturerId = @LecturerId";
                 using (var cmd = new SQLiteCommand(updateQuery, connect))
                 {
                     cmd.Parameters.AddWithValue("@LName", lec.LName);
-                    cmd.Parameters.AddWithValue("@Department", lec.Department);
+                    cmd.Parameters.AddWithValue("@CId", lec.CId);
+                    cmd.Parameters.AddWithValue("@SubId", lec.SubId);
                     cmd.Parameters.AddWithValue("@LecturerId", lec.LecturerId);
                     cmd.ExecuteNonQuery();
                 }
@@ -101,7 +106,6 @@ namespace Lokiproject4.Controllers
                 }
             }
         }
-    
 
     }
 }

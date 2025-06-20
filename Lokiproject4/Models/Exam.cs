@@ -13,5 +13,6 @@ namespace Lokiproject4.Models
 
         public int SubId { get; set; }
         public string SubName { get; set; }
+        public int SId { get; set; }
     }
 }

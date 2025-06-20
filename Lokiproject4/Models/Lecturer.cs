@@ -10,6 +10,7 @@ namespace Lokiproject4.Models
     {
         public int LecturerId { get; set; }
         public string LName { get; set; }
-        public string Department { get; set; }
+        public int CId { get; set; }
+        public int SubId { get; set; }
     }
 }

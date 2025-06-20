@@ -21,6 +21,14 @@ namespace Lokiproject4.Views
             InitializeComponent();
             LoadExams();
             LoadSubjects();
+            LoadStudents();
+
+        }
+        private void LoadStudents()
+        {
+            cmbStudents.DataSource = new StudentController().ViewStudent();
+            cmbStudents.DisplayMember = "SName";
+            cmbStudents.ValueMember = "SId";
         }
 
 
@@ -29,7 +37,8 @@ namespace Lokiproject4.Views
             Exam exam = new Exam
             {
                 ExamName = txtExamName.Text,
-                SubId = Convert.ToInt32(cmbsubjects.SelectedValue)  // ComboBox with subjects
+                SubId = Convert.ToInt32(cmbsubjects.SelectedValue),  // ComboBox with subjects
+                SId = Convert.ToInt32(cmbStudents.SelectedValue)     // NEW: Get SId from student ComboBox
             };
 
             new ExamController().AddExam(exam);
@@ -78,6 +87,7 @@ namespace Lokiproject4.Views
 
         private void button3_Click(object sender, EventArgs e)
         {
+
             if (dgvExams.SelectedRows.Count > 0)
             {
                 int examId = Convert.ToInt32(dgvExams.SelectedRows[0].Cells["ExamId"].Value);
@@ -100,7 +110,8 @@ namespace Lokiproject4.Views
                 {
                     ExamId = examId,
                     ExamName = txtExamName.Text.Trim(),
-                    SubId = Convert.ToInt32(cmbsubjects.SelectedValue)
+                    SubId = Convert.ToInt32(cmbsubjects.SelectedValue),
+                    SId = Convert.ToInt32(cmbStudents.SelectedValue) // NEW: for update too
                 };
 
                 new ExamController().UpdateExam(exam);

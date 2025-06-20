@@ -18,6 +18,21 @@ namespace Lokiproject4.Views
         {
             InitializeComponent();
             LoadLecturers();
+            LoadCourses();
+            LoadSubjects();
+        }
+        private void LoadCourses()
+        {
+            cmbCourses.DataSource = new CourseController().ViewCourse();
+            cmbCourses.DisplayMember = "CName";
+            cmbCourses.ValueMember = "CId";
+        }
+
+        private void LoadSubjects()
+        {
+            cmbSubjects.DataSource = new SubjectController().ViewSubjects();
+            cmbSubjects.DisplayMember = "SubName";
+            cmbSubjects.ValueMember = "SubId";
         }
 
         private void LecturerForm_Load(object sender, EventArgs e)
@@ -28,12 +43,11 @@ namespace Lokiproject4.Views
         private void button1_Click(object sender, EventArgs e)
         {
             string lname = txtLName.Text.Trim();
-            string department = txtDepartment.Text.Trim();
-            string username = lname;
+            int cid = Convert.ToInt32(cmbCourses.SelectedValue);
+            int subid = Convert.ToInt32(cmbSubjects.SelectedValue);
             string password = txtPassword.Text.Trim();
 
-            if (string.IsNullOrWhiteSpace(lname) || string.IsNullOrWhiteSpace(department) ||
-                string.IsNullOrWhiteSpace(password))
+            if (string.IsNullOrWhiteSpace(lname) || string.IsNullOrWhiteSpace(password))
             {
                 MessageBox.Show("Please fill all fields.");
                 return;
@@ -42,7 +56,8 @@ namespace Lokiproject4.Views
             Lecturer lec = new Lecturer
             {
                 LName = lname,
-                Department = department
+                CId = cid,
+                SubId = subid
             };
 
             LecturerController lecCtrl = new LecturerController();
@@ -52,40 +67,36 @@ namespace Lokiproject4.Views
 
             Users user = new Users
             {
-                Username = username,
+                Username = lname,
                 Password = password,
                 Role = "Lecturer",
-                
-                LecturerId = newLecturerId,
-                
+                LecturerId = newLecturerId
             };
 
             userCtrl.AddUser(user);
-
             MessageBox.Show("Lecturer and user added successfully.");
             ClearForm();
             LoadLecturers();
         }
         private void ClearForm()
         {
-            txtLName.Text = "";
-            txtDepartment.Text = "";
+            txtLName.Clear();
+            txtPassword.Clear();
+            cmbCourses.SelectedIndex = 0;
+            cmbSubjects.SelectedIndex = 0;
         }
+
         private void LoadLecturers()
         {
             dgvLecturers.DataSource = new LecturerController().ViewLecturers();
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             if (dgvLecturers.SelectedRows.Count > 0)
             {
                 int lecturerId = Convert.ToInt32(dgvLecturers.SelectedRows[0].Cells["LecturerId"].Value);
-
-                LecturerController ctrl = new LecturerController();
-                ctrl.DeleteLecturer(lecturerId);
-
-                MessageBox.Show("Lecturer deleted successfully.");
+                new LecturerController().DeleteLecturer(lecturerId);
+                MessageBox.Show("Lecturer deleted.");
                 LoadLecturers();
             }
         }
@@ -100,16 +111,16 @@ namespace Lokiproject4.Views
                 {
                     LecturerId = lecturerId,
                     LName = txtLName.Text.Trim(),
-                    Department = txtDepartment.Text.Trim()
+                    CId = Convert.ToInt32(cmbCourses.SelectedValue),
+                    SubId = Convert.ToInt32(cmbSubjects.SelectedValue)
                 };
 
-                LecturerController ctrl = new LecturerController();
-                ctrl.UpdateLecturer(updated);
-
-                MessageBox.Show("Lecturer updated successfully.");
+                new LecturerController().UpdateLecturer(updated);
+                MessageBox.Show("Lecturer updated.");
                 LoadLecturers();
                 ClearForm();
             }
         }
+        
     }
 }

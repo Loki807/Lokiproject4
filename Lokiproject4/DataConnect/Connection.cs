@@ -13,7 +13,7 @@ namespace Lokiproject4.DataConnect
 
 
         // ✅ Clean connection string
-        private static string connectionstring = "Data Source=dotdata.db;Version=3;";
+        private static string connectionstring = "Data Source=DBX.db;Version=3;";
 
         public static SQLiteConnection GetConnection()
         {

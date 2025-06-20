@@ -44,12 +44,14 @@ namespace Lokiproject4.DataConnect
                         FOREIGN KEY (CId) REFERENCES Courses(CId)
                     );";
                 string CreateExamTable = @"
-                                            CREATE TABLE IF NOT EXISTS Exams (
+                                        CREATE TABLE IF NOT EXISTS Exams (
                                             ExamId INTEGER PRIMARY KEY AUTOINCREMENT,
-                                             ExamName TEXT NOT NULL,
-                                                SubId INTEGER NOT NULL,
-                                                FOREIGN KEY (SubId) REFERENCES Subjects(SubId)
-                      );";
+                                            ExamName TEXT NOT NULL,
+                                            SId INTEGER NOT NULL,
+                                            SubId INTEGER NOT NULL,
+                                            FOREIGN KEY (SId) REFERENCES Students(SId),
+                                            FOREIGN KEY (SubId) REFERENCES Subjects(SubId)
+                                        );";
 
                 string CreateMarksTable = @"
                                     CREATE TABLE IF NOT EXISTS Marks (
@@ -72,21 +74,26 @@ namespace Lokiproject4.DataConnect
                                              );";
 
                 string createTimetableTable = @"
-                                                    CREATE TABLE IF NOT EXISTS Timetables (
-                                                    TimetableId INTEGER PRIMARY KEY AUTOINCREMENT,
-                                                    SubId INTEGER,
-                                                    TimeSlot TEXT NOT NULL,
-                                                     RoomId INTEGER,
-                                                    FOREIGN KEY (SubId) REFERENCES Subjects(SubId),
-                                                    FOREIGN KEY (RoomId) REFERENCES Rooms(RoomId)
-                                                     );";
+                                    CREATE TABLE IF NOT EXISTS Timetables (
+                                        TimetableId INTEGER PRIMARY KEY AUTOINCREMENT,
+                                        SubId INTEGER NOT NULL,
+                                        LecturerId INTEGER NOT NULL,
+                                        TimeSlot TEXT NOT NULL,
+                                        RoomId INTEGER NOT NULL,
+                                        FOREIGN KEY (SubId) REFERENCES Subjects(SubId),
+                                        FOREIGN KEY (LecturerId) REFERENCES Lecturers(LecturerId),
+                                        FOREIGN KEY (RoomId) REFERENCES Rooms(RoomId)
+                                    );";
 
                 string createLecturerTable = @"
-                                            CREATE TABLE IF NOT EXISTS Lecturers (
-                                                LecturerId INTEGER PRIMARY KEY AUTOINCREMENT,
-                                                LName TEXT NOT NULL,
-                                                Department TEXT NOT NULL
-                                            );";
+                                    CREATE TABLE IF NOT EXISTS Lecturers (
+                                        LecturerId INTEGER PRIMARY KEY AUTOINCREMENT,
+                                        LName TEXT NOT NULL,
+                                        CId INTEGER NOT NULL,
+                                        SubId INTEGER NOT NULL,
+                                        FOREIGN KEY (CId) REFERENCES Courses(CId),
+                                        FOREIGN KEY (SubId) REFERENCES Subjects(SubId)
+                                    );";
                 string createStaffTable = @"
                                     CREATE TABLE IF NOT EXISTS Staffs (
                                         StaffId INTEGER PRIMARY KEY AUTOINCREMENT,
