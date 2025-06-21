@@ -48,6 +48,7 @@
             this.txtExamName.Name = "txtExamName";
             this.txtExamName.Size = new System.Drawing.Size(121, 22);
             this.txtExamName.TabIndex = 0;
+            this.txtExamName.TextChanged += new System.EventHandler(this.txtExamName_TextChanged);
             // 
             // dgvExams
             // 

@@ -69,7 +69,7 @@ namespace Lokiproject4.DataConnect
                 string createRoomTable = @"
                                             CREATE TABLE IF NOT EXISTS Rooms (
                                             RoomId INTEGER PRIMARY KEY AUTOINCREMENT,
-                                            RoomName TEXT NOT NULL,
+                                            
                                             RoomType TEXT NOT NULL CHECK(RoomType IN ('Lab', 'Hall'))
                                              );";
 

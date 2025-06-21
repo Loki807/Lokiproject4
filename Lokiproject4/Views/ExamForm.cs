@@ -123,5 +123,10 @@ namespace Lokiproject4.Views
                 MessageBox.Show("Please select an exam to update.");
             }
         }
+
+        private void txtExamName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -32,9 +32,11 @@ namespace Lokiproject4.Controllers
             {
                 connect.Open();
                 string query = @"
-        SELECT e.ExamId, e.ExamName, s.SubId, s.SubName, e.SId
-        FROM Exams e
-        JOIN Subjects s ON e.SubId = s.SubId";
+            SELECT e.ExamId, e.ExamName, s.SubId, e.SId
+            FROM Exams e
+            JOIN Subjects s ON e.SubId = s.SubId
+            JOIN Students a ON e.SId = a.SId";
+
                 SQLiteCommand cmd = new SQLiteCommand(query, connect);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -44,9 +46,8 @@ namespace Lokiproject4.Controllers
                         ExamId = reader.GetInt32(0),
                         ExamName = reader.GetString(1),
                         SubId = reader.GetInt32(2),
-                        SubName = reader.GetString(3),
-                        SId = reader.GetInt32(4)
-                    });
+                        SId = reader.GetInt32(3)
+                    }); // <-- You were missing this closing parenthesis
                 }
             }
             return exams;
