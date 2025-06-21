@@ -237,6 +237,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="UnicomSystemReport\report.docx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
