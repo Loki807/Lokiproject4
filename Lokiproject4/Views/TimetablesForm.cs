@@ -47,9 +47,9 @@ namespace Lokiproject4.Views
 
         private void ClearForm()
         {
-            comboBox1.SelectedIndex = 0;
-            comboBox3.SelectedIndex = 0;
-            cmbRooms.SelectedIndex = 0;
+            comboBox1.SelectedIndex = -1;
+            comboBox2.SelectedIndex = -1;
+            comboBox3.SelectedIndex = -1;
             textBox1.Text = "";
             dateTimePicker1.Value = DateTime.Now; 
         }

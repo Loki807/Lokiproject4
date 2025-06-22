@@ -66,7 +66,7 @@ namespace Lokiproject4.DataConnect
                                         FOREIGN KEY (SubId) REFERENCES Subjects(SubId)
                                     );";
 
-                string createRoomTable = @"CREATE TABLE Rooms (
+                string createRoomTable = @"CREATE TABLE  IF NOT EXISTS Rooms (
                                                 RoomId INTEGER PRIMARY KEY AUTOINCREMENT,
                                                 RoomType TEXT NOT NULL CHECK(RoomType IN ('Lab', 'Hall'))
 
