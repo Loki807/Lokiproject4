@@ -19,6 +19,7 @@ namespace Lokiproject4.Controllers
         public LoginForm()
         {
             InitializeComponent();
+            dgv2.SelectionChanged += dgv2_SelectionChanged;
             LoadUsers();
 
 
@@ -127,7 +128,28 @@ namespace Lokiproject4.Controllers
             y.LoadUsersGrid(dgv2);
 
         }
+        private void dgv2_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgv2.SelectedRows.Count > 0)
+            {
+                var selectedRow = dgv2.SelectedRows[0];
 
+                txtUsername.Text = selectedRow.Cells["Username"].Value.ToString();
+                txtPassword.Text = selectedRow.Cells["Password"] != null ? selectedRow.Cells["Password"].Value.ToString() : "";
+                // Optional:
+                // You can also show role in a label or combo box if needed
+                // Example: txtRole.Text = selectedRow.Cells["Role"].Value.ToString();
+            }
+        }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ClearLoginText();
+        }
+        public void ClearLoginText()
+        {
+            txtUsername.Text = "";
+            txtPassword.Text = "";
+        }
     }
 }

@@ -111,6 +111,20 @@ namespace Lokiproject4.Controllers
                 }
             }
         }
+        public string GetCourseNameById(int courseId)
+        {
+            using (var connect = Connection.GetConnection())
+            {
+                connect.Open();
+                string query = "SELECT CName FROM Courses WHERE CId = @CId";
+                using (var cmd = new SQLiteCommand(query, connect))
+                {
+                    cmd.Parameters.AddWithValue("@CId", courseId);
+                    object result = cmd.ExecuteScalar();
+                    return result != null ? result.ToString() : "Unknown";
+                }
+            }
+        }
 
     }
 }

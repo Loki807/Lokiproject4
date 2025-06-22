@@ -19,6 +19,8 @@ namespace Lokiproject4.Views
         public ExamForm()
         {
             InitializeComponent();
+            dgvExams.SelectionChanged += dgvExams_SelectionChanged;
+
             LoadExams();
             LoadSubjects();
             LoadStudents();
@@ -66,9 +68,7 @@ namespace Lokiproject4.Views
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Dashboard board = new Dashboard();
-            board.Show();
-            this.Hide();
+            ClearExamForm();
         }
         public void DeleteExam(int examId)
         {
@@ -127,6 +127,23 @@ namespace Lokiproject4.Views
         private void txtExamName_TextChanged(object sender, EventArgs e)
         {
 
+        }
+        public void ClearExamForm()
+        {
+            txtExamName.Text = "";
+            cmbsubjects.SelectedIndex = -1;
+            cmbStudents.SelectedIndex = -1;
+        }
+        private void dgvExams_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvExams.SelectedRows.Count > 0)
+            {
+                var selectedRow = dgvExams.SelectedRows[0];
+
+                txtExamName.Text = selectedRow.Cells["ExamName"].Value.ToString();
+                cmbsubjects.SelectedValue = Convert.ToInt32(selectedRow.Cells["SubId"].Value);
+                cmbStudents.SelectedValue = Convert.ToInt32(selectedRow.Cells["SId"].Value);
+            }
         }
     }
 }

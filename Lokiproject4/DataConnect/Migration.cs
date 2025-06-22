@@ -66,23 +66,22 @@ namespace Lokiproject4.DataConnect
                                         FOREIGN KEY (SubId) REFERENCES Subjects(SubId)
                                     );";
 
-                string createRoomTable = @"
-                                            CREATE TABLE IF NOT EXISTS Rooms (
-                                            RoomId INTEGER PRIMARY KEY AUTOINCREMENT,
-                                            
-                                            RoomType TEXT NOT NULL CHECK(RoomType IN ('Lab', 'Hall'))
+                string createRoomTable = @"CREATE TABLE Rooms (
+                                                RoomId INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                RoomType TEXT NOT NULL CHECK(RoomType IN ('Lab', 'Hall'))
+
                                              );";
 
-                string createTimetableTable = @"
-                                    CREATE TABLE IF NOT EXISTS Timetables (
-                                        TimetableId INTEGER PRIMARY KEY AUTOINCREMENT,
-                                        SubId INTEGER NOT NULL,
-                                        LecturerId INTEGER NOT NULL,
-                                        TimeSlot TEXT NOT NULL,
-                                        RoomId INTEGER NOT NULL,
-                                        FOREIGN KEY (SubId) REFERENCES Subjects(SubId),
-                                        FOREIGN KEY (LecturerId) REFERENCES Lecturers(LecturerId),
-                                        FOREIGN KEY (RoomId) REFERENCES Rooms(RoomId)
+                string createTimetableTable = @"CREATE TABLE IF NOT EXISTS Timetables (
+                                                    TimetableId INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                    SubId INTEGER NOT NULL,
+                                                    LecturerId INTEGER NOT NULL,
+                                                    TimeSlot TEXT NOT NULL,
+                                                    RoomId INTEGER NOT NULL,
+                                                    DateTimeSlot TEXT NOT NULL, -- new column for date & time
+                                                    FOREIGN KEY (SubId) REFERENCES Subjects(SubId),
+                                                    FOREIGN KEY (LecturerId) REFERENCES Lecturers(LecturerId),
+                                                    FOREIGN KEY (RoomId) REFERENCES Rooms(RoomId)
                                     );";
 
                 string createLecturerTable = @"

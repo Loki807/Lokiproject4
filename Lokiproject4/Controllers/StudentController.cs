@@ -130,5 +130,20 @@ namespace Lokiproject4.Controllers
                 }
             }
         }
+
+        public string GetPasswordByStudentId(int studentId)
+        {
+            using (var connect = Connection.GetConnection())
+            {
+                connect.Open();
+                string query = @"SELECT Password FROM Users WHERE SId = @SId";
+                using (var cmd = new SQLiteCommand(query, connect))
+                {
+                    cmd.Parameters.AddWithValue("@SId", studentId);
+                    object result = cmd.ExecuteScalar();
+                    return result != null ? result.ToString() : "";
+                }
+            }
+        }
     }
 }

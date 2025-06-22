@@ -19,6 +19,7 @@ namespace Lokiproject4.Views
             InitializeComponent();
             LoadRooms();
             LoadRoomTypes();
+            dgvRooms.SelectionChanged += dgvRooms_SelectionChanged;
         }
 
         private void RoomForm_Load(object sender, EventArgs e)
@@ -35,14 +36,14 @@ namespace Lokiproject4.Views
             cmbRoomType.Items.Clear();
             cmbRoomType.Items.Add("Lab");
             cmbRoomType.Items.Add("Hall");
-            cmbRoomType.SelectedIndex = 0;
+            // cmbRoomType.SelectedIndex = 0; // remove this
         }
 
         private void ClearFields()
         {
+            txtRoomName.Text = "";
             cmbRoomType.SelectedIndex = -1;
         }
-
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -119,6 +120,21 @@ namespace Lokiproject4.Views
             {
                 MessageBox.Show("Select a row to update.");
             }
+        }
+        private void dgvRooms_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvRooms.SelectedRows.Count > 0)
+            {
+                var selectedRow = dgvRooms.SelectedRows[0];
+                string roomType = selectedRow.Cells["RoomType"].Value.ToString();
+
+                cmbRoomType.SelectedItem = roomType;
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            ClearFields();
         }
     }
 }

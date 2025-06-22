@@ -226,7 +226,8 @@
     <EmbeddedResource Include="Views\UsersForm.resx">
       <DependentUpon>UsersForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="DBX.db" />
+    <None Include="megadata.db" />
+    <None Include="megadata.db-journal" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

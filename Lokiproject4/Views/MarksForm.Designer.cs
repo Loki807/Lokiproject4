@@ -39,6 +39,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.cmbSubjects = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMarks)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numScore)).BeginInit();
             this.SuspendLayout();
@@ -55,7 +57,7 @@
             // cmbExams
             // 
             this.cmbExams.FormattingEnabled = true;
-            this.cmbExams.Location = new System.Drawing.Point(380, 129);
+            this.cmbExams.Location = new System.Drawing.Point(379, 129);
             this.cmbExams.Name = "cmbExams";
             this.cmbExams.Size = new System.Drawing.Size(121, 24);
             this.cmbExams.TabIndex = 1;
@@ -73,7 +75,7 @@
             // 
             // btnSaveMark
             // 
-            this.btnSaveMark.Location = new System.Drawing.Point(579, 199);
+            this.btnSaveMark.Location = new System.Drawing.Point(236, 217);
             this.btnSaveMark.Name = "btnSaveMark";
             this.btnSaveMark.Size = new System.Drawing.Size(75, 23);
             this.btnSaveMark.TabIndex = 4;
@@ -83,18 +85,18 @@
             // 
             // numScore
             // 
-            this.numScore.Location = new System.Drawing.Point(380, 200);
+            this.numScore.Location = new System.Drawing.Point(381, 170);
             this.numScore.Name = "numScore";
             this.numScore.Size = new System.Drawing.Size(120, 22);
             this.numScore.TabIndex = 5;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(704, 200);
+            this.button1.Location = new System.Drawing.Point(612, 217);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(75, 24);
             this.button1.TabIndex = 6;
-            this.button1.Text = "Exit";
+            this.button1.Text = "clear";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -119,7 +121,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(259, 199);
+            this.label2.Location = new System.Drawing.Point(254, 172);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 16);
             this.label2.TabIndex = 9;
@@ -128,7 +130,7 @@
             // cmbSubjects
             // 
             this.cmbSubjects.FormattingEnabled = true;
-            this.cmbSubjects.Location = new System.Drawing.Point(379, 99);
+            this.cmbSubjects.Location = new System.Drawing.Point(379, 96);
             this.cmbSubjects.Name = "cmbSubjects";
             this.cmbSubjects.Size = new System.Drawing.Size(121, 24);
             this.cmbSubjects.TabIndex = 10;
@@ -136,17 +138,39 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(262, 99);
+            this.label3.Location = new System.Drawing.Point(254, 99);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(57, 16);
             this.label3.TabIndex = 11;
             this.label3.Text = "subjects";
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(365, 217);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 24);
+            this.button2.TabIndex = 12;
+            this.button2.Text = "delete";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(492, 217);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 24);
+            this.button3.TabIndex = 13;
+            this.button3.Text = "update";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // MarksForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.cmbSubjects);
             this.Controls.Add(this.label2);
@@ -181,5 +205,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmbSubjects;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
     }
 }

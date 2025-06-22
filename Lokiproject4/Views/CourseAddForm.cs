@@ -18,6 +18,7 @@ namespace Lokiproject4
         public CourseAddForm()
         {
             InitializeComponent();
+            datagridcourse.SelectionChanged += datagridcourse_SelectionChanged;
             LoadCourse();
         }
 
@@ -112,6 +113,20 @@ namespace Lokiproject4
         private void CourseAddForm_Load(object sender, EventArgs e)
         {
 
+        }
+        private void datagridcourse_SelectionChanged(object sender, EventArgs e)
+        {
+            if (datagridcourse.SelectedRows.Count > 0)
+            {
+                var selectedRow = datagridcourse.SelectedRows[0];
+
+                coursenameadd.Text = selectedRow.Cells["CName"].Value.ToString();
+            }
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            ClearCourseText();
         }
     }
 }

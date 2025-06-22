@@ -18,9 +18,11 @@ namespace Lokiproject4.Views
         {
             InitializeComponent();
             LoadSubjects();
-            LoadTimetables();
-            LoadRoomTypes();
             LoadLecturers();
+           
+            LoadRooms();
+            LoadTimetables();
+            dataGridView1.SelectionChanged += dataGridView1_SelectionChanged;
 
         }
         private void LoadSubjects()
@@ -37,16 +39,7 @@ namespace Lokiproject4.Views
             comboBox3.ValueMember = "LecturerId";
         }
 
-        private void LoadRoomTypes()
-        {
-            comboBox2.Items.Clear();
-            comboBox2.Items.Add("Lab");
-            comboBox2.Items.Add("Hall");
-
-            if (comboBox2.Items.Count > 0)
-                comboBox2.SelectedIndex = 0;
-        }
-
+        
         private void LoadTimetables()
         {
             dataGridView1.DataSource = new TimetableController().ViewTimetables();
@@ -56,10 +49,10 @@ namespace Lokiproject4.Views
         {
             comboBox1.SelectedIndex = 0;
             comboBox3.SelectedIndex = 0;
-            comboBox2.SelectedIndex = 0;
+            cmbRooms.SelectedIndex = 0;
             textBox1.Text = "";
+            dateTimePicker1.Value = DateTime.Now; 
         }
-
         private void btnAddTimetable_Click(object sender, EventArgs e)
         {
             Timetables tt = new Timetables
@@ -122,7 +115,8 @@ namespace Lokiproject4.Views
                     SubId = Convert.ToInt32(comboBox1.SelectedValue),
                     LecturerId = Convert.ToInt32(comboBox3.SelectedValue),
                     TimeSlot = textBox1.Text,
-                    RoomId = Convert.ToInt32(comboBox2.SelectedValue)
+                    RoomId = Convert.ToInt32(cmbRooms.SelectedValue),
+                    DateTimeSlot = dateTimePicker1.Value
                 };
 
                 new TimetableController().UpdateTimetable(tt);
@@ -143,13 +137,58 @@ namespace Lokiproject4.Views
                 SubId = Convert.ToInt32(comboBox1.SelectedValue),
                 LecturerId = Convert.ToInt32(comboBox3.SelectedValue),
                 TimeSlot = textBox1.Text,
-                RoomId = Convert.ToInt32(comboBox2.SelectedValue)
+                RoomId = Convert.ToInt32(comboBox2.SelectedValue),
+                DateTimeSlot = dateTimePicker1.Value
             };
-
             new TimetableController().AddTimetable(tt);
             MessageBox.Show("Timetable Added");
             LoadTimetables();
             ClearForm();
+        }
+        private void LoadRooms()
+        {
+            comboBox2.DataSource = new RoomController().ViewRooms();
+            comboBox2.DisplayMember = "RoomType";  // Or "RoomName" if you have
+            comboBox2.ValueMember = "RoomId";
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                var row = dataGridView1.SelectedRows[0];
+
+                if (row.Cells["SubId"].Value != DBNull.Value)
+                    comboBox1.SelectedValue = Convert.ToInt32(row.Cells["SubId"].Value);
+
+                if (row.Cells["LecturerId"].Value != DBNull.Value)
+                    comboBox3.SelectedValue = Convert.ToInt32(row.Cells["LecturerId"].Value);
+
+              
+
+                if (row.Cells["TimeSlot"].Value != DBNull.Value)
+                    textBox1.Text = row.Cells["TimeSlot"].Value.ToString();
+
+                if (row.Cells["DateTimeSlot"].Value != DBNull.Value &&
+                    DateTime.TryParse(row.Cells["DateTimeSlot"].Value.ToString(), out DateTime dt))
+                {
+                    dateTimePicker1.Value = dt;
+                }
+            }
+        }
+
+        private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
     

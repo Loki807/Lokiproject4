@@ -130,5 +130,10 @@ namespace Lokiproject4.Views
             txtRoleType.Clear();
             txtPassword.Clear(); // if you use it for user creation
         }
+
+        private void txtPassword_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

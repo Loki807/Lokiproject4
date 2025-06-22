@@ -24,8 +24,11 @@ namespace Lokiproject4
         public txtcoursename()
         {
             InitializeComponent();
+            Dataviewstudents.SelectionChanged += Dataviewstudents_SelectionChanged;
             Loadview();
-           // LoadUsers();
+           
+
+
 
 
 
@@ -86,6 +89,7 @@ namespace Lokiproject4
                 MessageBox.Show("Student and user added successfully.");
                 txtstudentname.Clear();
                 txtcoursename2.Clear();
+
             }
             /*catch (Exception ex)
             {
@@ -173,12 +177,17 @@ namespace Lokiproject4
         {
 
         }
+        public void ClearStudentText()
+        {
+            txtstudentname.Text = "";
+            txtAddress.Text = "";
+            txtcoursename2.Text = "";
+            STUPASSWORD.Text = "";
+        }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Dashboard board = new Dashboard();
-            board.Show();
-            this.Hide();
+            ClearStudentText();
         }
        /* private void LoadUsers()
         {
@@ -189,6 +198,28 @@ namespace Lokiproject4
         private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+        private void Dataviewstudents_SelectionChanged(object sender, EventArgs e)
+        {
+            if (Dataviewstudents.SelectedRows.Count > 0)
+            {
+                var selectedRow = Dataviewstudents.SelectedRows[0];
+
+                int studentId = Convert.ToInt32(selectedRow.Cells["SId"].Value);
+                txtstudentname.Text = selectedRow.Cells["SName"].Value.ToString();
+                txtAddress.Text = selectedRow.Cells["Address"].Value.ToString();
+
+                // Get course name
+                int courseId = Convert.ToInt32(selectedRow.Cells["CId"].Value);
+                CourseController courseCtrl = new CourseController();
+                string courseName = courseCtrl.GetCourseNameById(courseId);
+                txtcoursename2.Text = courseName;
+
+                // Load password
+                UserController userCtrl = new UserController();
+                string password = controller.GetPasswordByStudentId(studentId);
+                STUPASSWORD.Text = password;
+            }
         }
     }
 }
