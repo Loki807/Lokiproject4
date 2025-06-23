@@ -86,6 +86,40 @@ namespace Lokiproject4.Controllers
 
             return subjects;
         }
+
+        public Subject GetSubjectById(int subId)
+        {
+            Subject subject = null;
+
+            using (var connect = Connection.GetConnection())
+            {
+                connect.Open();
+                string query = @"SELECT SubId, SubName, CId FROM Subjects WHERE SubId = @SubId";
+
+                using (var cmd = new SQLiteCommand(query, connect))
+                {
+                    cmd.Parameters.AddWithValue("@SubId", subId);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            subject = new Subject
+                            {
+                                SubId = reader.GetInt32(0),
+                                SubName = reader.GetString(1),
+                                CId = reader.GetInt32(2)
+                            };
+                        }
+                    }
+                }
+            }
+
+            return subject;
+        }
+        
+
+
+
     }
 }
-

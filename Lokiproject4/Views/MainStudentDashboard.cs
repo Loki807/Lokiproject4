@@ -38,12 +38,39 @@ namespace Lokiproject4.Views
 
         private void button1_Click(object sender, EventArgs e)
         {
-            LoadFormIntoPanel(new StudentDashboard());
+            txtcoursename studentForm = new txtcoursename();
+
+            studentForm.CanAdd = false;
+            studentForm.CanUpdate = false;
+            studentForm.CanDelete = false;
+            studentForm.CanClear = false;
+            
+
+            LoadFormIntoPanel(studentForm);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            LoadFormIntoPanel(new StudentTometable());
+            txtTimeslot timetableForm = new txtTimeslot();
+
+            // Make it read-only
+            timetableForm.CanAdd = false;
+            timetableForm.CanUpdate = false;
+            timetableForm.CanDelete = false;
+
+            LoadFormIntoPanel(timetableForm);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var marksForm = new MarksForm();
+
+            // Hide add, update, delete, clear buttons to make it read-only
+            marksForm.CanAdd = false;
+            marksForm.CanUpdate = false;
+            marksForm.CanDelete = false;
+            marksForm.CanClear = false;
+            LoadFormIntoPanel(marksForm);
         }
     }
 }

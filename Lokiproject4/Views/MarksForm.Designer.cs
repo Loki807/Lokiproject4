@@ -69,7 +69,7 @@
             this.dgvMarks.Name = "dgvMarks";
             this.dgvMarks.RowHeadersWidth = 51;
             this.dgvMarks.RowTemplate.Height = 24;
-            this.dgvMarks.Size = new System.Drawing.Size(758, 150);
+            this.dgvMarks.Size = new System.Drawing.Size(439, 133);
             this.dgvMarks.TabIndex = 2;
             this.dgvMarks.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMarks_CellContentClick);
             // 

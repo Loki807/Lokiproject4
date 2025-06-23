@@ -122,6 +122,10 @@ namespace Lokiproject4.Views
         {
             LoadFormIntoPanel(new UsersForm());
         }
-       
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            LoadFormIntoPanel(new AttendanceForm());
+        }
     }
 }

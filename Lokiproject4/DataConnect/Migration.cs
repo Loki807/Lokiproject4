@@ -16,146 +16,129 @@ namespace Lokiproject4.DataConnect
 {
     public static class Migration
     {
-        public static void CreateTable()
+        public static async Task CreateTableAsync()
         {
             using (var connect = Connection.GetConnection())
             {
-                connect.Open();
-                string CreateCourseQuery = @"
-                    CREATE TABLE IF NOT EXISTS Courses (
-                        CId INTEGER PRIMARY KEY AUTOINCREMENT,
-                        CName TEXT NOT NULL
-                    );";
+                await connect.OpenAsync();
 
-                string CreateStuQuery = @"
-                    CREATE TABLE IF NOT EXISTS Students (
-                        SId INTEGER PRIMARY KEY AUTOINCREMENT,
-                        SName TEXT NOT NULL,
-                        Address TEXT NOT NULL,
-                        CId INTEGER,
-                        FOREIGN KEY (CId) REFERENCES Courses(CId)
-                    );";
+                string CreateCourseQuery = @"CREATE TABLE IF NOT EXISTS Courses (
+                                        CId INTEGER PRIMARY KEY AUTOINCREMENT,
+                                        CName TEXT NOT NULL
+                                     );";
 
-                string CreateSubjectQuery = @"
-                    CREATE TABLE IF NOT EXISTS Subjects (
-                        SubId INTEGER PRIMARY KEY AUTOINCREMENT,
-                        SubName TEXT NOT NULL,
-                        CId INTEGER,
-                        FOREIGN KEY (CId) REFERENCES Courses(CId)
-                    );";
-                string CreateExamTable = @"
-                                        CREATE TABLE IF NOT EXISTS Exams (
-                                            ExamId INTEGER PRIMARY KEY AUTOINCREMENT,
-                                            ExamName TEXT NOT NULL,
-                                            SId INTEGER NOT NULL,
-                                            SubId INTEGER NOT NULL,
-                                            FOREIGN KEY (SId) REFERENCES Students(SId),
-                                            FOREIGN KEY (SubId) REFERENCES Subjects(SubId)
-                                        );";
+                string CreateStuQuery = @"CREATE TABLE IF NOT EXISTS Students (
+                                     SId INTEGER PRIMARY KEY AUTOINCREMENT,
+                                     SName TEXT NOT NULL,
+                                     Address TEXT NOT NULL,
+                                     CId INTEGER,
+                                     FOREIGN KEY (CId) REFERENCES Courses(CId)
+                                 );";
 
-                string CreateMarksTable = @"
-                                    CREATE TABLE IF NOT EXISTS Marks (
-                                        MarkId INTEGER PRIMARY KEY AUTOINCREMENT,
-                                        SId INTEGER NOT NULL,
-                                        ExamId INTEGER NOT NULL,
-                                        SubId INTEGER NOT NULL,
+                string CreateSubjectQuery = @"CREATE TABLE IF NOT EXISTS Subjects (
+                                         SubId INTEGER PRIMARY KEY AUTOINCREMENT,
+                                         SubName TEXT NOT NULL,
+                                         CId INTEGER,
+                                         FOREIGN KEY (CId) REFERENCES Courses(CId)
+                                     );";
 
-                                        Score INTEGER CHECK(Score >= 0 AND Score <= 100),
-                                        FOREIGN KEY (SId) REFERENCES Students(SId),
-                                        FOREIGN KEY (ExamId) REFERENCES Exams(ExamId),
-                                        FOREIGN KEY (SubId) REFERENCES Subjects(SubId)
-                                    );";
+                string CreateExamTable = @"CREATE TABLE IF NOT EXISTS Exams (
+                                     ExamId INTEGER PRIMARY KEY AUTOINCREMENT,
+                                     ExamName TEXT NOT NULL,
+                                     SId INTEGER NOT NULL,
+                                     SubId INTEGER NOT NULL,
+                                     FOREIGN KEY (SId) REFERENCES Students(SId),
+                                     FOREIGN KEY (SubId) REFERENCES Subjects(SubId)
+                                 );";
+
+                string CreateMarksTable = @"CREATE TABLE IF NOT EXISTS Marks (
+                                     MarkId INTEGER PRIMARY KEY AUTOINCREMENT,
+                                     SId INTEGER NOT NULL,
+                                     ExamId INTEGER NOT NULL,
+                                     SubId INTEGER NOT NULL,
+                                     Score INTEGER CHECK(Score >= 0 AND Score <= 100),
+                                     FOREIGN KEY (SId) REFERENCES Students(SId),
+                                     FOREIGN KEY (ExamId) REFERENCES Exams(ExamId),
+                                     FOREIGN KEY (SubId) REFERENCES Subjects(SubId)
+                                 );";
 
                 string createRoomTable = @"CREATE TABLE  IF NOT EXISTS Rooms (
-                                                RoomId INTEGER PRIMARY KEY AUTOINCREMENT,
-                                                RoomType TEXT NOT NULL CHECK(RoomType IN ('Lab', 'Hall'))
-
-                                             );";
+                                     RoomId INTEGER PRIMARY KEY AUTOINCREMENT,
+                                     RoomType TEXT NOT NULL CHECK(RoomType IN ('Lab', 'Hall'))
+                                   );";
 
                 string createTimetableTable = @"CREATE TABLE IF NOT EXISTS Timetables (
-                                                    TimetableId INTEGER PRIMARY KEY AUTOINCREMENT,
-                                                    SubId INTEGER NOT NULL,
-                                                    LecturerId INTEGER NOT NULL,
-                                                    TimeSlot TEXT NOT NULL,
-                                                    RoomId INTEGER NOT NULL,
-                                                    DateTimeSlot TEXT NOT NULL, -- new column for date & time
-                                                    FOREIGN KEY (SubId) REFERENCES Subjects(SubId),
-                                                    FOREIGN KEY (LecturerId) REFERENCES Lecturers(LecturerId),
-                                                    FOREIGN KEY (RoomId) REFERENCES Rooms(RoomId)
-                                    );";
+                                         TimetableId INTEGER PRIMARY KEY AUTOINCREMENT,
+                                         SubId INTEGER NOT NULL,
+                                         LecturerId INTEGER NOT NULL,
+                                         TimeSlot TEXT NOT NULL,
+                                         RoomId INTEGER NOT NULL,
+                                         DateTimeSlot TEXT NOT NULL,
+                                         FOREIGN KEY (SubId) REFERENCES Subjects(SubId),
+                                         FOREIGN KEY (LecturerId) REFERENCES Lecturers(LecturerId),
+                                         FOREIGN KEY (RoomId) REFERENCES Rooms(RoomId)
+                                       );";
 
-                string createLecturerTable = @"
-                                    CREATE TABLE IF NOT EXISTS Lecturers (
-                                        LecturerId INTEGER PRIMARY KEY AUTOINCREMENT,
-                                        LName TEXT NOT NULL,
-                                        CId INTEGER NOT NULL,
-                                        SubId INTEGER NOT NULL,
-                                        FOREIGN KEY (CId) REFERENCES Courses(CId),
-                                        FOREIGN KEY (SubId) REFERENCES Subjects(SubId)
-                                    );";
-                string createStaffTable = @"
-                                    CREATE TABLE IF NOT EXISTS Staffs (
-                                        StaffId INTEGER PRIMARY KEY AUTOINCREMENT,
-                                        StaffName TEXT NOT NULL,
-                                        RoleType TEXT NOT NULL
-                                    );";
+                string createLecturerTable = @"CREATE TABLE IF NOT EXISTS Lecturers (
+                                         LecturerId INTEGER PRIMARY KEY AUTOINCREMENT,
+                                         LName TEXT NOT NULL,
+                                         CId INTEGER NOT NULL,
+                                         SubId INTEGER NOT NULL,
+                                         FOREIGN KEY (CId) REFERENCES Courses(CId),
+                                         FOREIGN KEY (SubId) REFERENCES Subjects(SubId)
+                                     );";
 
-                string createUsers = @"
-                        CREATE TABLE IF NOT EXISTS Users (
-                        UserId INTEGER PRIMARY KEY AUTOINCREMENT,
-                        Username TEXT NOT NULL,
-                        Password TEXT NOT NULL,
-                        Role TEXT NOT NULL,
-                        SId INTEGER,
-                        LecturerId INTEGER,
-                        StaffId INTEGER,
-                        FOREIGN KEY(SId) REFERENCES Students(SId),
-                        FOREIGN KEY(LecturerId) REFERENCES Lecturers(LecturerId),
-                        FOREIGN KEY(StaffId) REFERENCES Staffs(StaffId)
-                    );";
+                string createStaffTable = @"CREATE TABLE IF NOT EXISTS Staffs (
+                                     StaffId INTEGER PRIMARY KEY AUTOINCREMENT,
+                                     StaffName TEXT NOT NULL,
+                                     RoleType TEXT NOT NULL
+                                   );";
 
-                SQLiteCommand usersCmd = new SQLiteCommand(createUsers, connect);
-                usersCmd.ExecuteNonQuery();
+                string createUsers = @"CREATE TABLE IF NOT EXISTS Users (
+                                 UserId INTEGER PRIMARY KEY AUTOINCREMENT,
+                                 Username TEXT NOT NULL,
+                                 Password TEXT NOT NULL,
+                                 Role TEXT NOT NULL,
+                                 SId INTEGER,
+                                 LecturerId INTEGER,
+                                 StaffId INTEGER,
+                                 FOREIGN KEY(SId) REFERENCES Students(SId),
+                                 FOREIGN KEY(LecturerId) REFERENCES Lecturers(LecturerId),
+                                 FOREIGN KEY(StaffId) REFERENCES Staffs(StaffId)
+                               );";
+                string createAttendanceTable = @"CREATE TABLE IF NOT EXISTS Attendance (
+                                AttendanceId INTEGER PRIMARY KEY AUTOINCREMENT,
+                                SId INTEGER NOT NULL,
+                                SubId INTEGER NOT NULL,
+                                Date TEXT NOT NULL,
+                                Status TEXT NOT NULL CHECK(Status IN ('Present', 'Absent', 'Late', 'Excused')),
+                                UNIQUE(SId, SubId, Date),
+                                FOREIGN KEY (SId) REFERENCES Students(SId),
+                                FOREIGN KEY (SubId) REFERENCES Subjects(SubId)
+                            );";
 
+                await new SQLiteCommand(createAttendanceTable, connect).ExecuteNonQueryAsync();
 
-
-                SQLiteCommand lecturerCmd = new SQLiteCommand(createLecturerTable, connect);
-                lecturerCmd.ExecuteNonQuery();
-
-                SQLiteCommand staffCmd = new SQLiteCommand(createStaffTable, connect);
-                staffCmd.ExecuteNonQuery();
-
-                
+                await new SQLiteCommand(createUsers, connect).ExecuteNonQueryAsync();
+                await new SQLiteCommand(createLecturerTable, connect).ExecuteNonQueryAsync();
+                await new SQLiteCommand(createStaffTable, connect).ExecuteNonQueryAsync();
 
                 MessageBox.Show("Users & related tables created");
 
-                SQLiteCommand roomCmd = new SQLiteCommand(createRoomTable, connect);
-                roomCmd.ExecuteNonQuery();
+                await new SQLiteCommand(createRoomTable, connect).ExecuteNonQueryAsync();
+                await new SQLiteCommand(createTimetableTable, connect).ExecuteNonQueryAsync();
+                await new SQLiteCommand(CreateExamTable, connect).ExecuteNonQueryAsync();
+                await new SQLiteCommand(CreateMarksTable, connect).ExecuteNonQueryAsync();
+                await new SQLiteCommand(CreateCourseQuery, connect).ExecuteNonQueryAsync();
 
-                SQLiteCommand timetableCmd = new SQLiteCommand(createTimetableTable, connect);
-                timetableCmd.ExecuteNonQuery();
+                MessageBox.Show("successfully table created");
 
-                SQLiteCommand cmdExam = new SQLiteCommand(CreateExamTable, connect);
-                cmdExam.ExecuteNonQuery();
-
-                SQLiteCommand cmdMark = new SQLiteCommand(CreateMarksTable,connect);
-                cmdMark.ExecuteNonQuery();
-
-
-                SQLiteCommand data2 = new SQLiteCommand(CreateCourseQuery, connect);
-                data2.ExecuteNonQuery();
-                {
-                    MessageBox.Show("successfully table created");
-                }
-
-                SQLiteCommand data1 = new SQLiteCommand(CreateStuQuery, connect);
-                data1.ExecuteNonQuery();
-
-                SQLiteCommand data3 = new SQLiteCommand(CreateSubjectQuery, connect);
-                data3.ExecuteNonQuery();
+                await new SQLiteCommand(CreateStuQuery, connect).ExecuteNonQueryAsync();
+                await new SQLiteCommand(CreateSubjectQuery, connect).ExecuteNonQueryAsync();
 
                 MessageBox.Show("successfully table created");
             }
         }
+
     }
 }

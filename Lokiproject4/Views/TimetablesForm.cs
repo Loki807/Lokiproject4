@@ -25,6 +25,26 @@ namespace Lokiproject4.Views
             dataGridView1.SelectionChanged += dataGridView1_SelectionChanged;
 
         }
+        public bool CanAdd
+        {
+            get => button2.Visible;
+            set => button2.Visible = value;
+        }
+
+        public bool CanUpdate
+        {
+            get => button3.Visible;
+            set => button3.Visible = value;
+        }
+
+        public bool CanDelete
+        {
+            get => button4.Visible;
+            set => button4.Visible = value;
+        }
+
+       
+
         private void LoadSubjects()
         {
             comboBox1.DataSource = new SubjectController().ViewSubjects();

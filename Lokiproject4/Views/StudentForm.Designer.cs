@@ -69,7 +69,7 @@
             this.Dataviewstudents.Name = "Dataviewstudents";
             this.Dataviewstudents.RowHeadersWidth = 51;
             this.Dataviewstudents.RowTemplate.Height = 24;
-            this.Dataviewstudents.Size = new System.Drawing.Size(694, 218);
+            this.Dataviewstudents.Size = new System.Drawing.Size(460, 194);
             this.Dataviewstudents.TabIndex = 2;
             this.Dataviewstudents.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 

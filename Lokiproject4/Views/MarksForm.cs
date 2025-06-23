@@ -31,6 +31,30 @@ namespace Lokiproject4.Views
 
             LoadMarksGrid();
         }
+        public bool CanAdd
+        {
+            get => btnSaveMark.Visible;
+            set => btnSaveMark.Visible = value;
+        }
+
+        public bool CanUpdate
+        {
+            get => button3.Visible; // Assuming button3 is Update button
+            set => button3.Visible = value;
+        }
+
+        public bool CanDelete
+        {
+            get => button2.Visible; // Assuming button2 is Delete button
+            set => button2.Visible = value;
+        }
+
+        public bool CanClear
+        {
+            get => button1.Visible; // Assuming button1 is Clear button
+            set => button1.Visible = value;
+        }
+
 
         private void MarksForm_Load(object sender, EventArgs e)
         {

@@ -33,6 +33,29 @@ namespace Lokiproject4
 
 
         }
+        public bool CanAdd
+        {
+            get => button1.Visible;
+            set => button1.Visible = value;
+        }
+
+        public bool CanUpdate
+        {
+            get => btnupdate.Visible;
+            set => btnupdate.Visible = value;
+        }
+
+        public bool CanDelete
+        {
+            get => button2.Visible;
+            set => button2.Visible = value;
+        }
+
+        public bool CanClear
+        {
+            get => button3.Visible;
+            set => button3.Visible = value;
+        }
         public void Loadview()
         {
             controller = new StudentController();
