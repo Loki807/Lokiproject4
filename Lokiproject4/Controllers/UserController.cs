@@ -33,62 +33,7 @@ namespace Lokiproject4.Controllers
                 }
             }
         }
-        /* public int AddStudentWithUser(Student s, string username, string password)
-         {
-             int newSId = 0;
-             using (var connect = Connection.GetConnection())
-             {
-                 connect.Open();
-                 string query = @"INSERT INTO Students (SName, Address, CId) VALUES (@SName, @Address, @CId);
-                          SELECT last_insert_rowid();";
-                 using (var cmd = new SQLiteCommand(query, connect))
-                 {
-                     cmd.Parameters.AddWithValue("@SName", s.SName);
-                     cmd.Parameters.AddWithValue("@Address", s.Address);
-                     cmd.Parameters.AddWithValue("@CId", s.CId);
-                     newSId = Convert.ToInt32((long)cmd.ExecuteScalar());
-                 }
-             }
-
-             // Add user
-             new UserController().AddUser(new Users
-             {
-                 Username = username,
-                 Password = password,
-                 Role = "Student",
-                 SId = newSId,
-                 LecturerId = null,
-                 StaffId = null
-             });
-
-             return newSId;
-         }
-       /*  public void LoadUsersGrid(DataGridView dgv)
-         {
-             using (var connect = Connection.GetConnection())
-             {
-                 connect.Open();
-
-                 string query = @"
-             SELECT 
-                 UserId, 
-                 Username, 
-                 Password, 
-                 Role, 
-                 SId, 
-                 LecturerId, 
-                 StaffId
-             FROM Users";
-
-                 using (var cmd = new SQLiteCommand(query, connect))
-                 using (var adapter = new SQLiteDataAdapter(cmd))
-                 {
-                     DataTable dt = new DataTable();
-                     adapter.Fill(dt);
-                     dgv.DataSource = dt;
-                 }
-             }
-         }*/
+        
         public Users Login(string username, string password)
         {
             using (var connect = Connection.GetConnection())

@@ -48,25 +48,21 @@ namespace Lokiproject4.Controllers
             {
                 MessageBox.Show("Login successful!");
 
-                if (user.Role == "Admin")
-                {
-                    Dashboard dashboard = new Dashboard();
-                    dashboard.Show();
-                }
-                else if (user.Role == "Student")
+              
+                if (user.Role == "Student")
                 {
                     MainStudentDashboard dashboard = new MainStudentDashboard();
                     dashboard.Show();
                 }
                 else if (user.Role == "Lecturer")
                 {
-                    Dashboard dashboard = new Dashboard();
-                    dashboard.Show();
+                    LectureDashboard LectureDashboard1 = new LectureDashboard();
+                    LectureDashboard1.Show();
                 }
                 else if (user.Role == "Staff")
                 {
-                    Dashboard dashboard = new Dashboard();
-                    dashboard.Show();
+                    StaffDashboard dashboard1 = new StaffDashboard();
+                    dashboard1.Show();
                 }
 
                 this.Hide(); // hide login form
@@ -75,43 +71,7 @@ namespace Lokiproject4.Controllers
             {
                 MessageBox.Show("Login failed. User not found.");
             }
-            /*  string uname = textBox1.Text;
-              string pass = textBox2.Text;
-
-              UserController userController = new UserController();
-              Users user = userController.Login(uname, pass);
-
-              if (user != null)
-              {
-                  MessageBox.Show("Login Success");
-
-                  if (user.Role == "Admin")
-                  {
-                      new Dashboard().Show();
-                  }
-                  else if (user.Role == "Lecturer")
-                  {
-                      new LecturerDashboard(user.LecturerId.Value).Show();
-                  }
-                  else if (user.Role == "Student")
-                  {
-                      new StudentDashboard(user.StudentId.Value).Show();
-                  }
-                  else if (user.Role == "Staff")
-                  {
-                      new StaffDashboard(user.StaffId.Value).Show();
-                  }
-
-                  this.Hide();
-              }
-              else 
-              {
-                  MessageBox.Show("Invalid Credentials or Invalid username or password");
-              }
-
-              this.Hide();*/
-
-
+            
 
 
 
@@ -136,9 +96,7 @@ namespace Lokiproject4.Controllers
 
                 txtUsername.Text = selectedRow.Cells["Username"].Value.ToString();
                 txtPassword.Text = selectedRow.Cells["Password"] != null ? selectedRow.Cells["Password"].Value.ToString() : "";
-                // Optional:
-                // You can also show role in a label or combo box if needed
-                // Example: txtRole.Text = selectedRow.Cells["Role"].Value.ToString();
+                
             }
         }
 
@@ -150,6 +108,28 @@ namespace Lokiproject4.Controllers
         {
             txtUsername.Text = "";
             txtPassword.Text = "";
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string username = txtUsername.Text.Trim();
+            string password = txtPassword.Text.Trim();
+
+            // Hardcoded admin credentials
+            const string adminUser = "admin";
+            const string adminPass = "password123";
+
+            if (username == adminUser && password == adminPass)
+            {
+                MessageBox.Show("Login successful! Welcome Admin.");
+                Dashboard dashboard = new Dashboard();
+                dashboard.Show();
+
+            }
+            else
+            {
+                MessageBox.Show("Invalid username or password.");
+            }
         }
     }
 }

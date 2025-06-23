@@ -18,7 +18,7 @@ namespace Lokiproject4
         [STAThread]
         static void Main()
         {
-            Migration.CreateTableAsync();
+            Migration.CreateTableAsync().GetAwaiter().GetResult();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new LoginForm());

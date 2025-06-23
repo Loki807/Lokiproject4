@@ -15,5 +15,6 @@ namespace Lokiproject4.Models
         public int? SId { get; set; }          // Student ID (nullable)
         public int? LecturerId { get; set; }   // Lecturer ID (nullable)
         public int? StaffId { get; set; }
+        public int AdminId { get; set; }
     }  
 }

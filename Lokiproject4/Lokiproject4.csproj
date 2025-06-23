@@ -64,7 +64,6 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DataConnect\Connection.cs" />
     <Compile Include="DataConnect\Migration.cs" />
-    <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Attendance.cs" />
     <Compile Include="Models\Courses.cs" />
     <Compile Include="Models\Exam.cs" />
@@ -138,6 +137,12 @@
     <Compile Include="Views\RoomForm.Designer.cs">
       <DependentUpon>RoomForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\StaffDashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\StaffDashboard.Designer.cs">
+      <DependentUpon>StaffDashboard.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\StaffForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,6 +194,9 @@
     <EmbeddedResource Include="Views\ExamForm.resx">
       <DependentUpon>ExamForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\LectureDashboard.resx">
+      <DependentUpon>LectureDashboard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\LecturerForm.resx">
       <DependentUpon>LecturerForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -203,6 +211,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\RoomForm.resx">
       <DependentUpon>RoomForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\StaffDashboard.resx">
+      <DependentUpon>StaffDashboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\StaffForm.resx">
       <DependentUpon>StaffForm.cs</DependentUpon>

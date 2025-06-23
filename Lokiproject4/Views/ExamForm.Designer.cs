@@ -57,7 +57,7 @@
             this.dgvExams.Name = "dgvExams";
             this.dgvExams.RowHeadersWidth = 51;
             this.dgvExams.RowTemplate.Height = 24;
-            this.dgvExams.Size = new System.Drawing.Size(644, 197);
+            this.dgvExams.Size = new System.Drawing.Size(241, 197);
             this.dgvExams.TabIndex = 1;
             // 
             // label1
@@ -147,7 +147,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(559, 406);
             this.Controls.Add(this.cmbStudents);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button4);

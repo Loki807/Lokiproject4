@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
-using System.Data.SQLite;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -117,6 +116,7 @@ namespace Lokiproject4.DataConnect
                                 FOREIGN KEY (SubId) REFERENCES Subjects(SubId)
                             );";
 
+               
                 await new SQLiteCommand(createAttendanceTable, connect).ExecuteNonQueryAsync();
 
                 await new SQLiteCommand(createUsers, connect).ExecuteNonQueryAsync();
