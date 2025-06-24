@@ -86,13 +86,13 @@ namespace Lokiproject4
                 return;
             }
 
-            
+            //try
             {
-                
+                // 1. Get or add course
                 CourseController courseController = new CourseController();
                 int courseId = courseController.GetCourseIdByName(courseName);
                 string address = txtAddress.Text.Trim();
-                
+                // 2. Create student object
                 Student student = new Student()
                 {
                     SName = studentName,
@@ -103,9 +103,9 @@ namespace Lokiproject4
 
                 
                 StudentController std = new StudentController();
-                int newSId = std.AddStudentAndGetId(student); ]
+                int newSId = std.AddStudentAndGetId(student); 
 
-                ]
+               
                 Users user = new Users
                 {
                     Username = studentName,
@@ -182,7 +182,7 @@ namespace Lokiproject4
                     SName = updatedName,
                     Address = Address,
                    
-                    
+                    //Address=updateadddress,
                 };
 
                 StudentController controller = new StudentController();
@@ -202,7 +202,8 @@ namespace Lokiproject4
         private void ClearTextBoxes()
         {
             txtstudentname.Text ="";
-           
+            //txtstudentaddress.Text = "";
+            //txtstudentid.Text = "";
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -221,7 +222,11 @@ namespace Lokiproject4
         {
             ClearStudentText();
         }
-      
+       /* private void LoadUsers()
+        {
+            UserController userCtrl = new UserController();
+            userCtrl.LoadUsersGrid(dataGridView1);
+        }*/
 
         private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
@@ -238,13 +243,13 @@ namespace Lokiproject4
                 txtstudentname.Text = selectedRow.Cells["SName"].Value.ToString();
                 txtAddress.Text = selectedRow.Cells["Address"].Value.ToString();
 
-               
+                // Get course name
                 int courseId = Convert.ToInt32(selectedRow.Cells["CId"].Value);
                 CourseController courseCtrl = new CourseController();
                 string courseName = courseCtrl.GetCourseNameById(courseId);
                 selectedCourseName = courseName;
 
-                
+                // Load password
                 UserController userCtrl = new UserController();
                 string password = controller.GetPasswordByStudentId(studentId);
                 STUPASSWORD.Text = password;
