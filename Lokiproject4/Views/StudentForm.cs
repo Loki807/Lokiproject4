@@ -86,7 +86,7 @@ namespace Lokiproject4
                 return;
             }
 
-            //try
+            
             {
                 // 1. Get or add course
                 CourseController courseController = new CourseController();
