@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lokiproject4.Controllers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -33,19 +34,20 @@ namespace Lokiproject4.Views
 
         private void zzzzzz_Click(object sender, EventArgs e)
         {
-            var marksForm = new MarksForm();
-
-            // Hide add, update, delete, clear buttons to make it read-only
-            marksForm.CanAdd = false;
-            marksForm.CanUpdate = false;
-            marksForm.CanDelete = false;
-            marksForm.CanClear = false;
-            LoadFormIntoPanel(marksForm);
+            
+            LoadFormIntoPanel(new MarksForm());
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             LoadFormIntoPanel(new ExamForm());
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            LoginForm w=new LoginForm();
+            w.Show();
+            this.Hide();
         }
     }
     

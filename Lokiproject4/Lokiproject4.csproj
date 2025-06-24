@@ -59,6 +59,7 @@
     <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Controllers\StudentSubjectController.cs" />
     <Compile Include="Controllers\SubjectController.cs" />
     <Compile Include="Controllers\TimetableController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Models\Room.cs" />
     <Compile Include="Models\Staff.cs" />
     <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\StudentSubject.cs" />
     <Compile Include="Models\Subject.cs" />
     <Compile Include="Models\Timetables.cs" />
     <Compile Include="Models\Users.cs" />
@@ -155,6 +157,18 @@
     <Compile Include="Views\StudentForm.Designer.cs">
       <DependentUpon>StudentForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\StudentSubjectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\StudentSubjectForm.Designer.cs">
+      <DependentUpon>StudentSubjectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StudentvideoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\StudentvideoForm.Designer.cs">
+      <DependentUpon>StudentvideoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\SubjectForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -220,6 +234,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\StudentForm.resx">
       <DependentUpon>StudentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\StudentSubjectForm.resx">
+      <DependentUpon>StudentSubjectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\StudentvideoForm.resx">
+      <DependentUpon>StudentvideoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\SubjectForm.resx">
       <DependentUpon>SubjectForm.cs</DependentUpon>

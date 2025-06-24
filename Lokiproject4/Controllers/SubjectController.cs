@@ -117,9 +117,32 @@ namespace Lokiproject4.Controllers
 
             return subject;
         }
-        
-
-
-
+        public List<Subject> GetSubjects()
+        {
+            List<Subject> list = new List<Subject>();
+            using (var conn = Connection.GetConnection())
+            {
+                conn.Open();
+                string query = "SELECT SubId, SubName FROM Subjects";
+                using (var cmd = new SQLiteCommand(query, conn))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new Subject
+                        {
+                            SubId = reader.GetInt32(0),
+                            SubName = reader.GetString(1)
+                        });
+                    }
+                }
+            }
+            return list;
+        }
     }
+
+
+
+
+    
 }

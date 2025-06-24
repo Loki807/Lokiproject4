@@ -115,8 +115,30 @@ namespace Lokiproject4.DataConnect
                                 FOREIGN KEY (SId) REFERENCES Students(SId),
                                 FOREIGN KEY (SubId) REFERENCES Subjects(SubId)
                             );";
+                string createStudentSubjectsTable = @"
+                                                CREATE TABLE IF NOT EXISTS StudentSubjects (
+                                                    SId INTEGER NOT NULL,
+                                                    SubId INTEGER NOT NULL,
+                                                    PRIMARY KEY (SId, SubId),
+                                                    FOREIGN KEY (SId) REFERENCES Students(SId),
+                                                    FOREIGN KEY (SubId) REFERENCES Subjects(SubId)
+                                                );";
 
-               
+                string createLecturerSubjectsTable = @"
+                                                    CREATE TABLE IF NOT EXISTS LecturerSubjects (
+                                                        LecturerId INTEGER NOT NULL,
+                                                        SubId INTEGER NOT NULL,
+                                                        PRIMARY KEY (LecturerId, SubId),
+                                                        FOREIGN KEY (LecturerId) REFERENCES Lecturers(LecturerId),
+                                                        FOREIGN KEY (SubId) REFERENCES Subjects(SubId)
+                                                    );";
+
+             
+
+                await new SQLiteCommand(createStudentSubjectsTable, connect).ExecuteNonQueryAsync();
+                await new SQLiteCommand(createLecturerSubjectsTable, connect).ExecuteNonQueryAsync();
+
+
                 await new SQLiteCommand(createAttendanceTable, connect).ExecuteNonQueryAsync();
 
                 await new SQLiteCommand(createUsers, connect).ExecuteNonQueryAsync();

@@ -31,9 +31,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.zzzzzz = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.zzzzzz = new System.Windows.Forms.Button();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -62,6 +63,7 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel3.Controls.Add(this.button2);
             this.panel3.Controls.Add(this.button1);
             this.panel3.Controls.Add(this.zzzzzz);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Left;
@@ -70,14 +72,15 @@
             this.panel3.Size = new System.Drawing.Size(185, 450);
             this.panel3.TabIndex = 2;
             // 
-            // panel4
+            // button1
             // 
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(185, 0);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(615, 450);
-            this.panel4.TabIndex = 1;
-            this.panel4.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
+            this.button1.Location = new System.Drawing.Point(54, 161);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "exams";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // zzzzzz
             // 
@@ -89,15 +92,24 @@
             this.zzzzzz.UseVisualStyleBackColor = true;
             this.zzzzzz.Click += new System.EventHandler(this.zzzzzz_Click);
             // 
-            // button1
+            // panel4
             // 
-            this.button1.Location = new System.Drawing.Point(54, 161);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "exams";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(185, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(615, 450);
+            this.panel4.TabIndex = 1;
+            this.panel4.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(54, 264);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "logout";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // StaffDashboard
             // 
@@ -123,5 +135,6 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button zzzzzz;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }

@@ -16,6 +16,7 @@ namespace Lokiproject4.Views
         public Dashboard()
         {
             InitializeComponent();
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -127,5 +128,18 @@ namespace Lokiproject4.Views
         {
             LoadFormIntoPanel(new AttendanceForm());
         }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+            
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+           
+             LoadFormIntoPanel(new StudentSubjectForm());
+        }
+    
     }
+    
 }

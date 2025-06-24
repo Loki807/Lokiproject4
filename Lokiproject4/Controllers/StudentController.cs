@@ -1,5 +1,6 @@
 ﻿using Lokiproject4.DataConnect;
 using Lokiproject4.Models;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -145,5 +146,29 @@ namespace Lokiproject4.Controllers
                 }
             }
         }
+        public List<Student> GetStudents()
+        {
+            List<Student> list = new List<Student>();
+            using (var connect = Connection.GetConnection())
+            {
+                connect.Open();
+                string query = "SELECT SId, SName FROM Students";
+                using (var cmd = new SQLiteCommand(query, connect))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new Student
+                        {
+                            SId = reader.GetInt32(0),
+                            SName = reader.GetString(1)
+                        });
+                    }
+                }
+            }
+            return list;
+        }
+
+
     }
 }

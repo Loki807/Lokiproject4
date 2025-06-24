@@ -72,5 +72,11 @@ namespace Lokiproject4.Views
             marksForm.CanClear = false;
             LoadFormIntoPanel(marksForm);
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            
+            LoadFormIntoPanel(new StudentvideoForm());
+        }
     }
 }
