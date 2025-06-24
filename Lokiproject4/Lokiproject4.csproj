@@ -55,6 +55,7 @@
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\ExamController.cs" />
     <Compile Include="Controllers\LecturerController.cs" />
+    <Compile Include="Controllers\LectureSubjectController.cs" />
     <Compile Include="Controllers\MarkController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Models\Courses.cs" />
     <Compile Include="Models\Exam.cs" />
     <Compile Include="Models\Lecturer.cs" />
+    <Compile Include="Models\LectureSubjects.cs" />
     <Compile Include="Models\Mark.cs" />
     <Compile Include="Models\Room.cs" />
     <Compile Include="Models\Staff.cs" />
@@ -114,6 +116,12 @@
     </Compile>
     <Compile Include="Views\LecturerForm.Designer.cs">
       <DependentUpon>LecturerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LectureSubjectsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\LectureSubjectsForm.Designer.cs">
+      <DependentUpon>LectureSubjectsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginForm.cs">
       <SubType>Form</SubType>
@@ -213,6 +221,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\LecturerForm.resx">
       <DependentUpon>LecturerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\LectureSubjectsForm.resx">
+      <DependentUpon>LectureSubjectsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>

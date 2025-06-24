@@ -29,17 +29,19 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel1.Controls.Add(this.button5);
             this.panel1.Controls.Add(this.button4);
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.button2);
@@ -49,6 +51,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(186, 450);
             this.panel1.TabIndex = 0;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(33, 307);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(126, 31);
+            this.button4.TabIndex = 3;
+            this.button4.Text = "videos";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button3
             // 
@@ -89,15 +101,15 @@
             this.panel2.TabIndex = 1;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
-            // button4
+            // button5
             // 
-            this.button4.Location = new System.Drawing.Point(33, 307);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(126, 31);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "videos";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button5.Location = new System.Drawing.Point(44, 382);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(107, 29);
+            this.button5.TabIndex = 4;
+            this.button5.Text = "LogOut";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // MainStudentDashboard
             // 
@@ -122,5 +134,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
     }
 }

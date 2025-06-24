@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lokiproject4.Controllers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -57,6 +58,13 @@ namespace Lokiproject4.Views
         {
             
             LoadFormIntoPanel(new MarksForm());
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            LoginForm h = new LoginForm();
+            h.Show();
+            this.Hide();
         }
     }
 }

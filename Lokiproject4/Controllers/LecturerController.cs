@@ -106,6 +106,33 @@ namespace Lokiproject4.Controllers
                 }
             }
         }
+        public List<Lecturer> GetLecturers()
+        {
+            List<Lecturer> list = new List<Lecturer>();
+
+            using (var conn = Connection.GetConnection())
+            {
+                conn.Open();
+                string query = @"SELECT LecturerId, LName, CId, SubId FROM Lecturers";
+
+                using (var cmd = new SQLiteCommand(query, conn))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new Lecturer
+                        {
+                            LecturerId = reader.GetInt32(0),
+                            LName = reader.GetString(1),
+                            CId = reader.GetInt32(2),
+                            SubId = reader.GetInt32(3)
+                        });
+                    }
+                }
+            }
+
+            return list;
+        }
 
     }
 }

@@ -35,12 +35,12 @@
             this.btnupdate = new System.Windows.Forms.Button();
             this.lblstudentname = new System.Windows.Forms.Label();
             this.lblcoursename = new System.Windows.Forms.Label();
-            this.txtcoursename2 = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.STUPASSWORD = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtAddress = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.Dataviewstudents)).BeginInit();
             this.SuspendLayout();
             // 
@@ -111,13 +111,6 @@
             this.lblcoursename.TabIndex = 6;
             this.lblcoursename.Text = "Course Name";
             // 
-            // txtcoursename2
-            // 
-            this.txtcoursename2.Location = new System.Drawing.Point(253, 119);
-            this.txtcoursename2.Name = "txtcoursename2";
-            this.txtcoursename2.Size = new System.Drawing.Size(100, 22);
-            this.txtcoursename2.TabIndex = 7;
-            // 
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(715, 192);
@@ -160,17 +153,25 @@
             this.label2.TabIndex = 13;
             this.label2.Text = "address";
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(253, 122);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 24);
+            this.comboBox1.TabIndex = 14;
+            // 
             // txtcoursename
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1025, 526);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtAddress);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.STUPASSWORD);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.txtcoursename2);
             this.Controls.Add(this.lblcoursename);
             this.Controls.Add(this.lblstudentname);
             this.Controls.Add(this.btnupdate);
@@ -196,11 +197,11 @@
         private System.Windows.Forms.Button btnupdate;
         private System.Windows.Forms.Label lblstudentname;
         private System.Windows.Forms.Label lblcoursename;
-        private System.Windows.Forms.TextBox txtcoursename2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TextBox STUPASSWORD;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtAddress;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

@@ -139,7 +139,18 @@ namespace Lokiproject4.Views
            
              LoadFormIntoPanel(new StudentSubjectForm());
         }
-    
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            LoginForm h=new LoginForm();
+            h.Show();
+            this.Hide();
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            LoadFormIntoPanel(new LectureSubjectsForm());
+        }
     }
     
 }

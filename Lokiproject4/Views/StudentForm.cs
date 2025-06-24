@@ -19,6 +19,7 @@ namespace Lokiproject4
 {
     public partial class txtcoursename : Form
     {
+        
         private StudentController controller;
         private int studentId;
         public txtcoursename()
@@ -26,13 +27,22 @@ namespace Lokiproject4
             InitializeComponent();
             Dataviewstudents.SelectionChanged += Dataviewstudents_SelectionChanged;
             Loadview();
-           
-
+            string selectedCourseName = comboBox1.Text;
+            LoadCourses();
 
 
 
 
         }
+        private void LoadCourses()
+        {
+            CourseController courseController= new CourseController();  
+            var courses = courseController.ViewCourse();
+            comboBox1.DataSource = courses;
+            comboBox1.DisplayMember = "CName";
+            comboBox1.ValueMember = "CId";
+        }
+
         public bool CanAdd
         {
             get => button1.Visible;
@@ -65,8 +75,9 @@ namespace Lokiproject4
          
         private void button1_Click(object sender, EventArgs e)
         {
+            string selectedCourseName = comboBox1.Text;
             string studentName = txtstudentname.Text.Trim();
-            string courseName = txtcoursename2.Text.Trim();
+            string courseName = selectedCourseName;
             string Address=txtAddress.Text.Trim();
             string passwords= STUPASSWORD.Text.Trim();  
             if (string.IsNullOrWhiteSpace(studentName) || string.IsNullOrWhiteSpace(courseName))
@@ -105,13 +116,13 @@ namespace Lokiproject4
                     
                     
                 };
-
+                
                 UserController userCtrl = new UserController();
                 userCtrl.AddUser(user);
 
                 MessageBox.Show("Student and user added successfully.");
                 txtstudentname.Clear();
-                txtcoursename2.Clear();
+                
 
             }
             /*catch (Exception ex)
@@ -160,9 +171,11 @@ namespace Lokiproject4
         {
             if (Dataviewstudents.SelectedRows.Count > 0)
             {
+                string selectedCourseName = comboBox1.Text;
+
                 int studentId = Convert.ToInt32(Dataviewstudents.SelectedRows[0].Cells["SId"].Value);
                 string updatedName = txtstudentname.Text;
-                string courseName = txtcoursename2.Text.Trim();
+                string courseName = selectedCourseName;
                 string Address = txtAddress.Text.Trim();
                 string passwords = STUPASSWORD.Text.Trim();
 
@@ -204,7 +217,7 @@ namespace Lokiproject4
         {
             txtstudentname.Text = "";
             txtAddress.Text = "";
-            txtcoursename2.Text = "";
+            
             STUPASSWORD.Text = "";
         }
 
@@ -227,6 +240,7 @@ namespace Lokiproject4
             if (Dataviewstudents.SelectedRows.Count > 0)
             {
                 var selectedRow = Dataviewstudents.SelectedRows[0];
+                string selectedCourseName = comboBox1.Text;
 
                 int studentId = Convert.ToInt32(selectedRow.Cells["SId"].Value);
                 txtstudentname.Text = selectedRow.Cells["SName"].Value.ToString();
@@ -236,7 +250,7 @@ namespace Lokiproject4
                 int courseId = Convert.ToInt32(selectedRow.Cells["CId"].Value);
                 CourseController courseCtrl = new CourseController();
                 string courseName = courseCtrl.GetCourseNameById(courseId);
-                txtcoursename2.Text = courseName;
+                selectedCourseName = courseName;
 
                 // Load password
                 UserController userCtrl = new UserController();

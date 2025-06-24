@@ -31,10 +31,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.zzzzzz = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -72,9 +72,19 @@
             this.panel3.Size = new System.Drawing.Size(185, 450);
             this.panel3.TabIndex = 2;
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(54, 241);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 30);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "logout";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(54, 161);
+            this.button1.Location = new System.Drawing.Point(54, 151);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
@@ -84,7 +94,7 @@
             // 
             // zzzzzz
             // 
-            this.zzzzzz.Location = new System.Drawing.Point(54, 57);
+            this.zzzzzz.Location = new System.Drawing.Point(54, 66);
             this.zzzzzz.Name = "zzzzzz";
             this.zzzzzz.Size = new System.Drawing.Size(75, 23);
             this.zzzzzz.TabIndex = 0;
@@ -100,16 +110,6 @@
             this.panel4.Size = new System.Drawing.Size(615, 450);
             this.panel4.TabIndex = 1;
             this.panel4.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(54, 264);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "logout";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // StaffDashboard
             // 

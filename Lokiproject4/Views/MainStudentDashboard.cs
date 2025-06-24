@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lokiproject4.Controllers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -77,6 +78,13 @@ namespace Lokiproject4.Views
         {
             
             LoadFormIntoPanel(new StudentvideoForm());
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            LoginForm h = new LoginForm();
+            h.Show();
+            this.Hide();
         }
     }
 }
