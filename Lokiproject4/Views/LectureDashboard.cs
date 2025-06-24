@@ -26,7 +26,7 @@ namespace Lokiproject4.Views
         {
             txtTimeslot timetableForm = new txtTimeslot();
 
-            // Make it read-only
+           
             timetableForm.CanAdd = false;
             timetableForm.CanUpdate = false;
             timetableForm.CanDelete = false;
