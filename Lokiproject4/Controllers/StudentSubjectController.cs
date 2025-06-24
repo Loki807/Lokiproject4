@@ -29,10 +29,10 @@ namespace Lokiproject4.Controllers
                     while (reader.Read())
                     {
                         list.Add((
-                            reader.GetInt32(0),         // SId
-                            reader.GetString(1),        // SName
-                            reader.GetInt32(2),         // SubId
-                            reader.GetString(3)         // SubName
+                            reader.GetInt32(0),         
+                            reader.GetString(1),        
+                            reader.GetInt32(2),         
+                            reader.GetString(3)         
                         ));
                     }
                 }
@@ -56,7 +56,7 @@ namespace Lokiproject4.Controllers
             }
         }
 
-        // Delete student-subject link
+        
         public void DeleteStudentSubject(int studentId, int subjectId)
         {
             using (var connect = Connection.GetConnection())
@@ -73,7 +73,7 @@ namespace Lokiproject4.Controllers
             }
         }
 
-        // Update student-subject link (change subject for a student or student for a subject)
+        
         public void UpdateStudentSubject(int oldStudentId, int oldSubjectId, int newStudentId, int newSubjectId)
         {
             using (var connect = Connection.GetConnection())

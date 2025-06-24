@@ -9,6 +9,6 @@ namespace Lokiproject4.Models
     internal class Room
     {
         public int RoomId { get; set; }
-        public string RoomType { get; set; } // "Lab" or "Hall"
+        public string RoomType { get; set; } 
     }
 }

@@ -47,7 +47,7 @@ namespace Lokiproject4.Controllers
                         ExamName = reader.GetString(1),
                         SubId = reader.GetInt32(2),
                         SId = reader.GetInt32(3)
-                    }); // <-- You were missing this closing parenthesis
+                    }); 
                 }
             }
             return exams;

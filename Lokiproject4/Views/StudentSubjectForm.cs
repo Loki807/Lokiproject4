@@ -49,7 +49,7 @@ namespace Lokiproject4.Views
 
         private void LoadSubjectsCombo()
         {
-            var subjects = controller2.GetSubjects(); // Use subject controller
+            var subjects = controller2.GetSubjects(); 
             if (subjects != null && subjects.Count > 0)
             {
                 cmbSubjects.DataSource = subjects;
