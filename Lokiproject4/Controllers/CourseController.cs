@@ -14,115 +14,153 @@ namespace Lokiproject4.Controllers
     {
         public void AddCourse(Courses C1)
         {
-            using (var connect = Connection.GetConnection())
+            try
             {
-
-                connect.Open();
-                string InsertQuery = @"INSERT INTO Courses(CName) VALUES(@CName)";
-                SQLiteCommand cmd = new SQLiteCommand(InsertQuery, connect);
-                cmd.Parameters.AddWithValue("@CName", C1.CName);
-
-
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Course added");
+                using (var connect = Connection.GetConnection())
+                {
+                    connect.Open();
+                    string InsertQuery = @"INSERT INTO Courses(CName) VALUES(@CName)";
+                    SQLiteCommand cmd = new SQLiteCommand(InsertQuery, connect);
+                    cmd.Parameters.AddWithValue("@CName", C1.CName);
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Course added");
+                }
             }
-
-
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error adding course: " + ex.Message);
+            }
         }
-        
 
         public void UpdateCourse(Courses C1)
         {
-            using (var connect = Connection.GetConnection())
+            try
             {
-                connect.Open();
-                string UpdateQuery = @"UPDATE Courses SET CName = @CName WHERE CId = @CId";
-                SQLiteCommand cmd = new SQLiteCommand(UpdateQuery, connect);
-                cmd.Parameters.AddWithValue("@CName", C1.CName);
-                cmd.Parameters.AddWithValue("@CId", C1.CId);
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Course updated");
+                using (var connect = Connection.GetConnection())
+                {
+                    connect.Open();
+                    string UpdateQuery = @"UPDATE Courses SET CName = @CName WHERE CId = @CId";
+                    SQLiteCommand cmd = new SQLiteCommand(UpdateQuery, connect);
+                    cmd.Parameters.AddWithValue("@CName", C1.CName);
+                    cmd.Parameters.AddWithValue("@CId", C1.CId);
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Course updated");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error updating course: " + ex.Message);
             }
         }
 
         public void DeleteCourse(int courseId)
         {
-            using (var connect = Connection.GetConnection())
+            try
             {
-                connect.Open();
-                string DeleteQuery = @"DELETE FROM Courses WHERE CId = @CId";
-                SQLiteCommand cmd = new SQLiteCommand(DeleteQuery, connect);
-                cmd.Parameters.AddWithValue("@CId", courseId);
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Course deleted");
+                using (var connect = Connection.GetConnection())
+                {
+                    connect.Open();
+                    string DeleteQuery = @"DELETE FROM Courses WHERE CId = @CId";
+                    SQLiteCommand cmd = new SQLiteCommand(DeleteQuery, connect);
+                    cmd.Parameters.AddWithValue("@CId", courseId);
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Course deleted");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error deleting course: " + ex.Message);
             }
         }
+
         public List<Courses> ViewCourse()
         {
             List<Courses> courseList = new List<Courses>();
-
-            using (var connect = Connection.GetConnection())
+            try
             {
-                connect.Open();
-                string viewQuery = @"SELECT * FROM Courses";
-                using (SQLiteCommand cmd = new SQLiteCommand(viewQuery, connect))
-                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                using (var connect = Connection.GetConnection())
                 {
-                    while (reader.Read())
+                    connect.Open();
+                    string viewQuery = @"SELECT * FROM Courses";
+                    using (SQLiteCommand cmd = new SQLiteCommand(viewQuery, connect))
+                    using (SQLiteDataReader reader = cmd.ExecuteReader())
                     {
-                        Courses course = new Courses
+                        while (reader.Read())
                         {
-                            CId = reader.GetInt32(0),
-                            CName = reader.GetString(1)
-                        };
-                        courseList.Add(course);
+                            Courses course = new Courses
+                            {
+                                CId = reader.GetInt32(0),
+                                CName = reader.GetString(1)
+                            };
+                            courseList.Add(course);
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error viewing courses: " + ex.Message);
             }
 
             return courseList;
         }
+
         public int GetCourseIdByName(string courseName)
         {
-            using (var connect = Connection.GetConnection())
+            try
             {
-                connect.Open();
-
-                // Check if course already exists
-                string checkQuery = "SELECT CId FROM Courses WHERE CName = @CName";
-                using (var cmd = new SQLiteCommand(checkQuery, connect))
+                using (var connect = Connection.GetConnection())
                 {
-                    cmd.Parameters.AddWithValue("@CName", courseName);
-                    var result = cmd.ExecuteScalar();
+                    connect.Open();
 
-                    if (result != null)
+                    string checkQuery = "SELECT CId FROM Courses WHERE CName = @CName";
+                    using (var cmd = new SQLiteCommand(checkQuery, connect))
                     {
-                        return Convert.ToInt32(result); // Course exists
+                        cmd.Parameters.AddWithValue("@CName", courseName);
+                        var result = cmd.ExecuteScalar();
+
+                        if (result != null)
+                        {
+                            return Convert.ToInt32(result);
+                        }
+                    }
+
+                    string insertQuery = "INSERT INTO Courses(CName) VALUES(@CName); SELECT last_insert_rowid();";
+                    using (var cmd = new SQLiteCommand(insertQuery, connect))
+                    {
+                        cmd.Parameters.AddWithValue("@CName", courseName);
+                        long newId = (long)cmd.ExecuteScalar();
+                        return (int)newId;
                     }
                 }
-
-                // If not found, insert new course
-                string insertQuery = "INSERT INTO Courses(CName) VALUES(@CName); SELECT last_insert_rowid();";
-                using (var cmd = new SQLiteCommand(insertQuery, connect))
-                {
-                    cmd.Parameters.AddWithValue("@CName", courseName);
-                    long newId = (long)cmd.ExecuteScalar(); // Get newly inserted course ID
-                    return (int)newId;
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error getting course ID by name: " + ex.Message);
+                return -1;
             }
         }
+
         public string GetCourseNameById(int courseId)
         {
-            using (var connect = Connection.GetConnection())
+            try
             {
-                connect.Open();
-                string query = "SELECT CName FROM Courses WHERE CId = @CId";
-                using (var cmd = new SQLiteCommand(query, connect))
+                using (var connect = Connection.GetConnection())
                 {
-                    cmd.Parameters.AddWithValue("@CId", courseId);
-                    object result = cmd.ExecuteScalar();
-                    return result != null ? result.ToString() : "Unknown";
+                    connect.Open();
+                    string query = "SELECT CName FROM Courses WHERE CId = @CId";
+                    using (var cmd = new SQLiteCommand(query, connect))
+                    {
+                        cmd.Parameters.AddWithValue("@CId", courseId);
+                        object result = cmd.ExecuteScalar();
+                        return result != null ? result.ToString() : "Unknown";
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error getting course name by ID: " + ex.Message);
+                return "Error";
             }
         }
 

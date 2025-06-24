@@ -14,123 +14,164 @@ namespace Lokiproject4.Controllers
     {
         public void AddOrUpdateMark(Mark mark)
         {
-            using (var connect = Connection.GetConnection())
+            try
             {
-                connect.Open();
+                using (var connect = Connection.GetConnection())
+                {
+                    connect.Open();
 
+                    string insert = "INSERT INTO Marks (SId, SubId, ExamId, Score) VALUES (@SId, @SubId, @ExamId, @Score)";
+                    using (var cmdInsert = new SQLiteCommand(insert, connect))
                     {
-                        string insert = "INSERT INTO Marks (SId, SubId, ExamId, Score) VALUES (@SId, @SubId, @ExamId, @Score)";
-                        using (var cmdInsert = new SQLiteCommand(insert, connect))
-                        {
-                            cmdInsert.Parameters.AddWithValue("@SId", mark.SId);
-                            cmdInsert.Parameters.AddWithValue("@SubId", mark.SubId);
-                            cmdInsert.Parameters.AddWithValue("@ExamId", mark.ExamId);
-                            cmdInsert.Parameters.AddWithValue("@Score", mark.Score);
-                            cmdInsert.ExecuteNonQuery();
-                        }
+                        cmdInsert.Parameters.AddWithValue("@SId", mark.SId);
+                        cmdInsert.Parameters.AddWithValue("@SubId", mark.SubId);
+                        cmdInsert.Parameters.AddWithValue("@ExamId", mark.ExamId);
+                        cmdInsert.Parameters.AddWithValue("@Score", mark.Score);
+                        cmdInsert.ExecuteNonQuery();
                     }
-                
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error adding or updating mark: " + ex.Message);
             }
         }
 
         public List<Mark> ViewMarks()
         {
             List<Mark> marks = new List<Mark>();
-            using (var connect = Connection.GetConnection())
+            try
             {
-                connect.Open();
-                string query = @"
-                SELECT m.MarkId, st.SId, st.SName, ex.ExamId, ex.ExamName, m.Score, sub.SubId, sub.SubName
-                FROM Marks m
-                JOIN Students st ON m.SId = st.SId
-                JOIN Exams ex ON m.ExamId = ex.ExamId
-                JOIN Subjects sub ON m.SubId = sub.SubId";
-
-                using (var cmd = new SQLiteCommand(query, connect))
-                using (var reader = cmd.ExecuteReader())
+                using (var connect = Connection.GetConnection())
                 {
-                    while (reader.Read())
+                    connect.Open();
+                    string query = @"
+            SELECT m.MarkId, st.SId, st.SName, ex.ExamId, ex.ExamName, m.Score, sub.SubId, sub.SubName
+            FROM Marks m
+            JOIN Students st ON m.SId = st.SId
+            JOIN Exams ex ON m.ExamId = ex.ExamId
+            JOIN Subjects sub ON m.SubId = sub.SubId";
+
+                    using (var cmd = new SQLiteCommand(query, connect))
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        marks.Add(new Mark
+                        while (reader.Read())
                         {
-                            MarkId = reader.GetInt32(0),
-                            SId = reader.GetInt32(1),
-                            SName = reader.GetString(2),
-                            ExamId = reader.GetInt32(3),
-                            ExamName = reader.GetString(4),
-                            Score = reader.GetInt32(5),
-                            SubId = reader.GetInt32(6),
-                            SubName = reader.GetString(7)
-                        });
+                            marks.Add(new Mark
+                            {
+                                MarkId = reader.GetInt32(0),
+                                SId = reader.GetInt32(1),
+                                SName = reader.GetString(2),
+                                ExamId = reader.GetInt32(3),
+                                ExamName = reader.GetString(4),
+                                Score = reader.GetInt32(5),
+                                SubId = reader.GetInt32(6),
+                                SubName = reader.GetString(7)
+                            });
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error viewing marks: " + ex.Message);
             }
             return marks;
         }
 
         public List<Mark> ViewMarksForStudent(int studentId)
         {
-            return ViewMarks().Where(m => m.SId == studentId).ToList();
+            try
+            {
+                return ViewMarks().Where(m => m.SId == studentId).ToList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error viewing marks for student: " + ex.Message);
+                return new List<Mark>();
+            }
         }
 
         public void DeleteMark(int markId)
         {
-            using (var connect = Connection.GetConnection())
+            try
             {
-                connect.Open();
-                string delete = "DELETE FROM Marks WHERE MarkId = @MarkId";
-                using (var cmd = new SQLiteCommand(delete, connect))
+                using (var connect = Connection.GetConnection())
                 {
-                    cmd.Parameters.AddWithValue("@MarkId", markId);
-                    cmd.ExecuteNonQuery();
+                    connect.Open();
+                    string delete = "DELETE FROM Marks WHERE MarkId = @MarkId";
+                    using (var cmd = new SQLiteCommand(delete, connect))
+                    {
+                        cmd.Parameters.AddWithValue("@MarkId", markId);
+                        cmd.ExecuteNonQuery();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error deleting mark: " + ex.Message);
             }
         }
 
         public void UpdateMark(Mark mark)
         {
-            using (var connect = Connection.GetConnection())
+            try
             {
-                connect.Open();
-                string update = "UPDATE Marks SET SId = @SId, SubId = @SubId, ExamId = @ExamId, Score = @Score WHERE MarkId = @MarkId";
-                using (var cmd = new SQLiteCommand(update, connect))
+                using (var connect = Connection.GetConnection())
                 {
-                    cmd.Parameters.AddWithValue("@SId", mark.SId);
-                    cmd.Parameters.AddWithValue("@SubId", mark.SubId);
-                    cmd.Parameters.AddWithValue("@ExamId", mark.ExamId);
-                    cmd.Parameters.AddWithValue("@Score", mark.Score);
-                    cmd.Parameters.AddWithValue("@MarkId", mark.MarkId);
-                    cmd.ExecuteNonQuery();
+                    connect.Open();
+                    string update = "UPDATE Marks SET SId = @SId, SubId = @SubId, ExamId = @ExamId, Score = @Score WHERE MarkId = @MarkId";
+                    using (var cmd = new SQLiteCommand(update, connect))
+                    {
+                        cmd.Parameters.AddWithValue("@SId", mark.SId);
+                        cmd.Parameters.AddWithValue("@SubId", mark.SubId);
+                        cmd.Parameters.AddWithValue("@ExamId", mark.ExamId);
+                        cmd.Parameters.AddWithValue("@Score", mark.Score);
+                        cmd.Parameters.AddWithValue("@MarkId", mark.MarkId);
+                        cmd.ExecuteNonQuery();
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error updating mark: " + ex.Message);
+            }
         }
+
         public void LoadMarksGrid(DataGridView dgv)
         {
-            using (var connect = Connection.GetConnection())
+            try
             {
-                connect.Open();
-                string query = @"
-                        SELECT 
-                            m.MarkId, 
-                            st.SId, 
-                            st.SName, 
-                            ex.ExamId, 
-                            ex.ExamName, 
-                            m.Score, 
-                            sub.SubId, 
-                            sub.SubName
-                        FROM Marks m
-                        JOIN Students st ON m.SId = st.SId
-                        JOIN Exams ex ON m.ExamId = ex.ExamId
-                        JOIN Subjects sub ON m.SubId = sub.SubId";
-
-                using (var cmd = new SQLiteCommand(query, connect))
-                using (var adapter = new SQLiteDataAdapter(cmd))
+                using (var connect = Connection.GetConnection())
                 {
-                    var dt = new System.Data.DataTable();
-                    adapter.Fill(dt);
-                    dgv.DataSource = dt;
+                    connect.Open();
+                    string query = @"
+                SELECT 
+                    m.MarkId, 
+                    st.SId, 
+                    st.SName, 
+                    ex.ExamId, 
+                    ex.ExamName, 
+                    m.Score, 
+                    sub.SubId, 
+                    sub.SubName
+                FROM Marks m
+                JOIN Students st ON m.SId = st.SId
+                JOIN Exams ex ON m.ExamId = ex.ExamId
+                JOIN Subjects sub ON m.SubId = sub.SubId";
+
+                    using (var cmd = new SQLiteCommand(query, connect))
+                    using (var adapter = new SQLiteDataAdapter(cmd))
+                    {
+                        var dt = new System.Data.DataTable();
+                        adapter.Fill(dt);
+                        dgv.DataSource = dt;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading marks grid: " + ex.Message);
             }
         }
 
